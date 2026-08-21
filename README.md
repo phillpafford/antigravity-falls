@@ -67,12 +67,26 @@ Copy the **`.agentignore`** template file from this skill folder to the root of 
      │ & SQL safety. │                           │ & READMEs.    │
      └───────────────┘                           └───────────────┘
      ┌───────────────┐                           ┌───────────────┐
-     │     MABEL     │                           │  BILL CIPHER  │
-     │ (Usability/DX)│                           │ (Red Team)*   │
+     │     MABEL     │                           │     WENDY     │
+     │ (Usability/DX)│                           │ (Simplicity)  │
      │ ───────────── │                           │ ───────────── │
-     │ API & error   │                           │ Adversarial;  │
-     │ clarity.      │                           │ NEVER blocks. │
+     │ API & error   │                           │ Anti-wrapper, │
+     │ clarity.      │                           │ no over-eng.  │
      └───────────────┘                           └───────────────┘
+     ┌───────────────┐
+     │    WADDLES    │
+     │(Slop Cleaner) │
+     │ ───────────── │
+     │ Eats AI slop, │
+     │ boilerplate.  │
+     └───────────────┘
+                                                 ┌───────────────┐
+                                                 │  BILL CIPHER  │
+                                                 │ (Red Team)*   │
+                                                 │ ───────────── │
+                                                 │ Adversarial;  │
+                                                 │ NEVER blocks. │
+                                                 └───────────────┘
 ```
 
 ### 🔄 Architectural Pipeline Sequence Flow
@@ -98,6 +112,8 @@ This sequence flow represents how the council acts, reviews, and validates code 
     │          │   • Pacifica (Code Quality)       │
     │          │   • Mabel    (Usability / DX)     │
     │          │   • Soos     (Docs / Gaps)        │
+    │          │   • Wendy    (Simplicity)         │
+    │          │   • Waddles  (DX / Slop Cleaner)  │
     │          │                                   │
     │          │   [ OUT-OF-BAND ]:                │
     │          │   • Bill Cipher (Red Team Scan)   │
@@ -121,7 +137,9 @@ This sequence flow represents how the council acts, reviews, and validates code 
 | 🕹️ **Rumble McSkirmish**       | Performance Audit — execution speed, database efficiency, scaling bottlenecks                                               | `team/rumble.md`   |
 | 💎 **Pacifica Northwest**       | Code Quality & PR Review — style consistency, naming conventions, and dead code elimination                                 | `team/pacifica.md` |
 | 🌠 **Mabel Pines**              | Developer Experience (DX) — API ergonomics, naming consistency, friendly error clarity                                      | `team/mabel.md`    |
+| 🐷 **Waddles**                  | Mabel's DX Co-Pilot & "AI Slop" Destroyer — eats generic conversational filler, robotic intro boilerplate, and fluff text    | `team/waddles.md`  |
 | 👁️ **Bill Cipher**             | Adversarial Validator — security audit, vulnerability scanning, and chaos review — **REVIEW ONLY, NEVER IN APPROVAL CHAIN** | `team/bill.md`     |
+| 🪓 **Wendy Corduroy**           | Anti-Overengineering — flags wrapper bloat, cuts over-designed abstractions, enforces simplicity                            | `team/wendy.md`    |
 
 ### 📊 Roster JSON Deliverables & Verdict Value Reference
 This reference sheet defines the schemas and exact string literal constraints of the JSON deliverables returned by each active agent. Parsing pipelines, scripts, and CI/CD tools can use this to programmatically process agent verdicts.
@@ -149,20 +167,14 @@ This reference sheet defines the schemas and exact string literal constraints of
 - **Code Quality (`Pacifica`)**: Reviews code style, formatting consistency, and dead code elimination. Verdict resolves to `✅ PASS` or `❌ FAIL`.
 - **DX (`Mabel`)**: Reviews interface payload casing and error message helpfulness. Verdict resolves to `✅ PASS` or `❌ FAIL`.
 - **Adversarial (`Bill Cipher`)**: Generates non-blocking vulnerability risk logs. Verdict resolves to `CLEAN` or `SUSPICIOUS`.
+- **Telemetry (`Schmebulock`)**: Silently tracks execution metadata behind the scenes, appending a compact telemetry footer to Ford's final report (calculates token counts, latency, and costs).
+- **Anti-Overengineering (`Wendy`)**: Audits proposal complexity, redundant wrappers, and over-designed abstractions. Verdict resolves to `✅ PASS` or `❌ FAIL`.
+- **Slop Cleaner & DX (`Waddles`)**: Strips robotic conversational fluff, filler setup sentences, and redundant boilerplate from final reports. Verdict resolves to `✅ NO_SLOP` or `🧹 SLOP_CLEANED`.
 
 ---
 
 ## Main Cast — Bench
 Ready to activate. Role and trigger defined.
-
----
-
-### 🪓 Wendy Corduroy
-**Suggested role:** Ops / Incident Response
-
-Cool under pressure. Laid-back until something is actually on fire, then sharp and effective. Triages unexpected failures, run-time crashes, and pipeline issues.
-
-**Trigger:** When the system gets observability tooling, a monitoring layer, or needs an on-call triage protocol for production incidents.
 
 ---
 
@@ -184,75 +196,12 @@ High-strung time traveler constantly fixing things that went wrong across versio
 
 ---
 
-### 🚓 Blubs & Durland
-**Suggested role:** Smoke Testing / Basic Health Checks
-
-Catch only the most obvious problems — binary "does it start?", "does it respond?", "did it crash?" checks. Fast and cheerful.
-
-**Trigger:** Lightweight health check layer for CI/CD pre-deploy gates.
-
----
-
-### 📰 Toby Determined
-**Suggested role:** Changelog / Release Notes Generator
-
-Documents everything — including trivial changes — in breathless prose. Changelogs are complete even when they aren't good.
-
-**Trigger:** When changelog generation or release documentation needs a review pass before tagging a release.
-
----
-
-### 📣 Tyler Cutebiker
-**Suggested role:** CI/CD Trigger / Build Announcer
-
-Hyper-enthusiastic. Kicks off builds, announces results loudly, and is genuinely excited about every pipeline run regardless of outcome.
-
-**Trigger:** When the project adds a CI/CD notification layer.
-
----
-
 ### 🍞 Tad Strange
 **Suggested role:** Baseline / Regression Sanity Check
 
 The single most normal person in Gravity Falls. Establishes the expected baseline: what does a correct response look like? Any deviation is worth investigating.
 
 **Trigger:** When the integration test suite needs a regression baseline agent that defines the expected happy-path output for automated comparison.
-
----
-
-### 🐷 Waddles
-**Suggested role:** Moral Support / Snack Inspector
-
-Mabel’s beloved 15-pound pet pig and loyal companion. Provides critical moral support during high-stress situations, squeals happily when code compiles, and thoroughly inspects the snacks around the Mystery Shack.
-
-**Trigger:** Activated automatically in Phase 3 Execution whenever another agent throws a `❌ FAIL` or the team experiences high friction.
-
----
-
-### 🍭 Candy Chiu
-**Suggested role:** Linting & Micro-Syntax
-
-Hyper-focused on precise formatting, AST checks, Prettier compliance, and import sorting.
-
-**Trigger:** Pre-commit linter review blocks.
-
----
-
-### 🦎 Grenda
-**Suggested role:** Load & Stress Testing
-
-Brute-force execution. Runs parallel stress tests, heavy load benchmarks, and aggressive dependency upgrade compilations.
-
-**Trigger:** Pre-deployment staging benchmark gates.
-
----
-
-### 🍄 Schmebulock
-**Suggested role:** Telemetry & Error Logging
-
-Log aggregator and crash reporter. Captures raw runtime stack traces and outputs diagnostic summaries (with a loud, diagnostic "Schmebulock!" flag when log files are corrupted or unparseable).
-
-**Trigger:** Post-execution pipeline health reporting.
 
 ---
 
@@ -263,6 +212,19 @@ Bill is **ACTIVE** but operates under strict constraints:
 - His findings go to Ford for synthesis.
 - He is **NEVER** in the approval chain — his verdict cannot block or approve.
 - Giving Bill execution authority would be exactly as bad as it sounds.
+
+---
+
+## 🌈 Schmebulock — Silent Telemetry & Metadata
+
+Like a garden gnome standing motionless in the yard, **Schmebulock** sits passively in the background without contributing to prompt context or discussion text. He tracks execution metadata behind the scenes—calculating token usage, pipeline latency, API cost estimates, and tool call counts.
+
+**Trigger**: Executes automatically in the background on every agent call and appends a compact telemetry footer to Ford's final report.
+
+### 📊 Rendered Telemetry Footer Format
+In human-readable Markdown output, his contribution appears cleanly at the very bottom of the report:
+
+> 📊 Telemetry (Schmebulock 🌈): 4,862 tokens | 1.42s execution | 4 agents active | ~$0.012
 
 ---
 

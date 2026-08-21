@@ -29,7 +29,7 @@ const child = spawn('npx', [
     '--max-concurrency', '1',
     '--verbose'
 ], {
-    shell: true,
+    shell: false,
     env: { ...process.env }
 });
 
@@ -60,18 +60,21 @@ function checkForRateLimit(chunk) {
     if (match) {
         const secondsToWait = parseFloat(match[1]);
         const roundedSeconds = Math.ceil(secondsToWait);
-        const cooldownMs = roundedSeconds * 1000;
+        
+        // Add a 1,000ms safety padding to survive Actions Runner clock drift
+        const safetyBufferMs = 1000;
+        const cooldownMs = (roundedSeconds * 1000) + safetyBufferMs;
         const unlockTimestamp = Date.now() + cooldownMs;
 
         console.error(`\n\n🚨 [RATE LIMIT INTERCEPTED] google:gemini-3.5-flash is rate-limited!`);
-        console.error(`⌛ Must wait exactly ${roundedSeconds}s before next request.`);
+        console.error(`⌛ Lock duration: ${roundedSeconds}s (+1s clock-sync buffer)`);
         console.error(`🔒 Creating local lockfile: .agent/rate-limit-lock.txt\n`);
 
         // Create the cacheable lockfile
         fs.writeFileSync(LOCK_FILE, unlockTimestamp.toString(), 'utf8');
 
         // Write a beautiful step summary if running in GitHub Actions
-        publishGitHubSummary(roundedSeconds);
+        publishGitHubSummary(roundedSeconds + 1);
 
         // Instantly kill Promptfoo to stop its 60-second exponential sleep loop
         child.kill('SIGKILL');
