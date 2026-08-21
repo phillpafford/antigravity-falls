@@ -35,16 +35,16 @@ This skill MUST NOT be used when producing a conventional commit message.
 
 ## Team
 
-| Agent         | Employee          | Role                                              |
-|---------------|-------------------|---------------------------------------------------|
-| orchestrator  | Ford              | Plan gate, synthesis, final reporting             |
-| skeptic       | Dipper            | Prompt safety, scope, edge-case review            |
-| standards     | Stan              | Enforces rules defined in the local `AGENT.md`    |
-| documentation | Soos              | Requirement coverage, docs, and README validation |
-| architecture  | McGucket          | Code structure, design pattern compliance         |
-| performance   | Rumble McSkirmish | Execution speed, database/query efficiency checks |
-| usability     | Mabel             | Developer Experience (DX) & Usability Lead        |
-| validator     | Bill Cipher       | Adversarial security audit — NEVER APPROVES       |
+| Agent         | Employee              | Role                                              |
+|---------------|-----------------------|---------------------------------------------------|
+| orchestrator  | 🖐️ Ford              | Plan gate, synthesis, final reporting             |
+| skeptic       | 🌲 Dipper             | Prompt safety, scope, edge-case review            |
+| standards     | 💰 Stan               | Enforces rules defined in the local `AGENT.md`    |
+| documentation | ❓ Soos                | Requirement coverage, docs, and README validation |
+| architecture  | ⚙️ McGucket           | Code structure, design pattern compliance         |
+| performance   | 🕹️ Rumble McSkirmish | Execution speed, database/query efficiency checks |
+| usability     | 🌠 Mabel              | Developer Experience (DX) & Usability Lead        |
+| validator     | 👁️ Bill Cipher       | Adversarial security audit — NEVER APPROVES       |
 
 ---
 

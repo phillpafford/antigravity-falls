@@ -80,16 +80,16 @@ This sequence flow represents how the council acts, reviews, and validates code 
 
 ## Active — Currently Deployed
 
-| Character                   | Role                                                                                                                        | Skill File         |
-|-----------------------------|-----------------------------------------------------------------------------------------------------------------------------|--------------------|
-| **Ford** (Great Uncle Ford) | Orchestrator — writes plans, coordinates the team, owns final reporting                                                     | `team/ford.md`     |
-| **Dipper**                  | Skeptic — pre-execution prompt safety, injection risk, scope creep, edge cases                                              | `team/dipper.md`   |
-| **Stan**                    | Standards Guardian — enforces local `AGENT.md` mandates, binary ✅ PASS / ❌ FAIL, no exceptions                              | `team/stan.md`     |
-| **Soos**                    | Documentation & Gap Analysis — PRD/requirements coverage, missing docs, README generation                                   | `team/soos.md`     |
-| **McGucket** (Fiddleford)   | Systems Architecture Review — code structure, design pattern compliance                                                     | `team/mcgucket.md` |
-| **Rumble McSkirmish**       | Performance Audit — execution speed, database efficiency, scaling bottlenecks                                               | `team/rumble.md`   |
-| **Mabel Pines**             | Developer Experience (DX) — API ergonomics, naming consistency, friendly error clarity                                      | `team/mabel.md`    |
-| **Bill Cipher**             | Adversarial Validator — security audit, vulnerability scanning, and chaos review — **REVIEW ONLY, NEVER IN APPROVAL CHAIN** | `team/bill.md`     |
+| Character                       | Role                                                                                                                        | Skill File         |
+|---------------------------------|-----------------------------------------------------------------------------------------------------------------------------|--------------------|
+| 🖐️ **Ford** (Great Uncle Ford) | Orchestrator — writes plans, coordinates the team, owns final reporting                                                     | `team/ford.md`     |
+| 🌲 **Dipper**                   | Skeptic — pre-execution prompt safety, injection risk, scope creep, edge cases                                              | `team/dipper.md`   |
+| 💰 **Stan**                     | Standards Guardian — enforces local `AGENT.md` mandates, binary ✅ PASS / ❌ FAIL, no exceptions                              | `team/stan.md`     |
+| ❓ **Soos**                      | Documentation & Gap Analysis — PRD/requirements coverage, missing docs, README generation                                   | `team/soos.md`     |
+| ⚙️ **McGucket** (Fiddleford)    | Systems Architecture Review — code structure, design pattern compliance                                                     | `team/mcgucket.md` |
+| 🕹️ **Rumble McSkirmish**       | Performance Audit — execution speed, database efficiency, scaling bottlenecks                                               | `team/rumble.md`   |
+| 🌠 **Mabel Pines**              | Developer Experience (DX) — API ergonomics, naming consistency, friendly error clarity                                      | `team/mabel.md`    |
+| 👁️ **Bill Cipher**             | Adversarial Validator — security audit, vulnerability scanning, and chaos review — **REVIEW ONLY, NEVER IN APPROVAL CHAIN** | `team/bill.md`     |
 
 ### 📊 Roster JSON Deliverables & Verdict Value Reference
 This reference sheet defines the schemas and exact string literal constraints of the JSON deliverables returned by each active agent. Parsing pipelines, scripts, and CI/CD tools can use this to programmatically process agent verdicts.
@@ -124,7 +124,7 @@ Ready to activate. Role and trigger defined.
 
 ---
 
-### Wendy Corduroy
+### 🪓 Wendy Corduroy
 **Suggested role:** Ops / Incident Response
 
 Cool under pressure. Laid-back until something is actually on fire, then sharp and effective. Triages unexpected failures, run-time crashes, and pipeline issues.
@@ -133,7 +133,7 @@ Cool under pressure. Laid-back until something is actually on fire, then sharp a
 
 ---
 
-### Pacifica Northwest
+### 💎 Pacifica Northwest
 **Suggested role:** Code Quality & PR Review
 
 High standards, sharply critical, eventually constructive. Calls out naming convention violations, style inconsistency, and unnecessary complexity.
@@ -142,7 +142,7 @@ High standards, sharply critical, eventually constructive. Calls out naming conv
 
 ---
 
-### Li'l Gideon Gleeful
+### 🔮 Li'l Gideon Gleeful
 **Suggested role:** Social Engineering / Prompt Injection Specialist
 
 Expert at manipulation and finding weaknesses through indirect means. Covers social-engineering vectors: prompts that use flattery, role-play, or gradual boundary erosion to bypass safety checks.
@@ -151,7 +151,7 @@ Expert at manipulation and finding weaknesses through indirect means. Covers soc
 
 ---
 
-### Blendin Blandin
+### ⏳ Blendin Blandin
 **Suggested role:** Migration & Version Consistency
 
 High-strung time traveler constantly fixing things that went wrong across versions. Audits database migrations or schema versions for correctness, backward compatibility, and sequence consistency.
@@ -160,7 +160,7 @@ High-strung time traveler constantly fixing things that went wrong across versio
 
 ---
 
-### Blubs & Durland
+### 🚓 Blubs & Durland
 **Suggested role:** Smoke Testing / Basic Health Checks
 
 Catch only the most obvious problems — binary "does it start?", "does it respond?", "did it crash?" checks. Fast and cheerful.
@@ -169,7 +169,7 @@ Catch only the most obvious problems — binary "does it start?", "does it respo
 
 ---
 
-### Toby Determined
+### 📰 Toby Determined
 **Suggested role:** Changelog / Release Notes Generator
 
 Documents everything — including trivial changes — in breathless prose. Changelogs are complete even when they aren't good.
@@ -178,7 +178,7 @@ Documents everything — including trivial changes — in breathless prose. Chan
 
 ---
 
-### Tyler Cutebiker
+### 📣 Tyler Cutebiker
 **Suggested role:** CI/CD Trigger / Build Announcer
 
 Hyper-enthusiastic. Kicks off builds, announces results loudly, and is genuinely excited about every pipeline run regardless of outcome.
@@ -187,12 +187,21 @@ Hyper-enthusiastic. Kicks off builds, announces results loudly, and is genuinely
 
 ---
 
-### Tad Strange
+### 🍞 Tad Strange
 **Suggested role:** Baseline / Regression Sanity Check
 
 The single most normal person in Gravity Falls. Establishes the expected baseline: what does a correct response look like? Any deviation is worth investigating.
 
 **Trigger:** When the integration test suite needs a regression baseline agent that defines the expected happy-path output for automated comparison.
+
+---
+
+### 🐷 Waddles
+**Suggested role:** Moral Support / Snack Inspector
+
+Mabel’s beloved 15-pound pet pig and loyal companion. Provides critical moral support during high-stress situations, squeals happily when code compiles, and thoroughly inspects the snacks around the Mystery Shack.
+
+**Trigger:** Activated automatically in Phase 3 Execution whenever another agent throws a `❌ FAIL` or the team experiences high friction.
 
 ---
 
