@@ -28,69 +28,83 @@ Open your newly created `AGENT.md` (or individual Journals) and replace the brac
 
 ## 👥 Meet the Council
 
-```mermaid
-flowchart TD
-    Ford["🖐️ **Ford (Orchestrator)**<br/>The Gatekeeper, Planner & coordinator"]
-
-    subgraph Tier1 ["Primary Gatekeepers"]
-        Dipper["🌲 **DIPPER (Skeptic)**<br/>Analyzes scope creep, risks, & edge cases."]
-        Stan["💰 **STAN (Standards)**<br/>Enforces code compliance in local AGENT.md."]
-        McGucket["⚙️ **MCGUCKET (Architect)**<br/>Reviews structure, types, patterns, and testing."]
-    end
-
-    subgraph Tier2 ["Parallel Review Council"]
-        Pacifica["💎 **PACIFICA (Code Quality)**<br/>Enforces style & naming conventions."]
-        Rumble["🕹️ **RUMBLE (Performance)**<br/>Audits execution speeds, N+1s, & SQL safety."]
-        Soos["❓ **SOOS (Docs/Gaps)**<br/>Gaps analysis, PRD coverage, README validation."]
-        Mabel["🌠 **MABEL (Usability/DX)**<br/>Reviews API usability & error clarity."]
-    end
-
-    subgraph OutOfBand ["Out-of-Band Audit"]
-        Bill["👁️ **BILL CIPHER (Adversarial)**<br/>Unblocked audit logs.<br/><b>NEVER blocks.</b>"]
-    end
-
-    Ford --> Dipper
-    Ford --> Stan
-    Ford --> McGucket
-
-    Dipper --> Pacifica
-    Stan --> Rumble
-    McGucket --> Soos
-    McGucket --> Mabel
-
-    McGucket -.- Bill
-
-    style OutOfBand stroke:#ffd700,stroke-dasharray: 5 5,fill:#1a1a00
-    style Bill fill:#2b2600,stroke:#ffd700,color:#fff
+```text
+                     ┌───────────────────────────┐
+                     │    Ford (Orchestrator)    │
+                     │  Gatekeeper & Coordinator │
+                     └─────────────┬─────────────┘
+                                   │
+             ┌─────────────────────┴─────────────────────┐
+             ▼                                           ▼
+     ┌───────────────┐                           ┌───────────────┐
+     │    DIPPER     │                           │     STAN      │
+     │   (Skeptic)   │                           │  (Standards)  │
+     │ ───────────── │                           │ ───────────── │
+     │ Scope creep,  │                           │ Enforces code │
+     │ risks, edge.  │                           │ AGENT.md laws │
+     └───────────────┘                           └───────────────┘
+             │                                           │
+             └─────────────────────┬─────────────────────┘
+                                   ▼
+     ┌───────────────────────────────────────────────────────────┐
+     │                  PARALLEL REVIEW COUNCIL                  │
+     └─────────────────────────────┬─────────────────────────────┘
+                                   │
+             ┌─────────────────────┴─────────────────────┐
+             ▼                                           ▼
+     ┌───────────────┐                           ┌───────────────┐
+     │   MCGUCKET    │                           │   PACIFICA    │
+     │  (Architect)  │                           │ (Code Quality)│
+     │ ───────────── │                           │ ───────────── │
+     │ Structure,    │                           │ Style & naming│
+     │ types, tests. │                           │ conventions.  │
+     └───────────────┘                           └───────────────┘
+     ┌───────────────┐                           ┌───────────────┐
+     │    RUMBLE     │                           │     SOOS      │
+     │ (Performance) │                           │  (Docs/Gaps)  │
+     │ ───────────── │                           │ ───────────── │
+     │ Speeds, N+1s, │                           │ PRD coverage  │
+     │ & SQL safety. │                           │ & READMEs.    │
+     └───────────────┘                           └───────────────┘
+     ┌───────────────┐                           ┌───────────────┐
+     │     MABEL     │                           │  BILL CIPHER  │
+     │ (Usability/DX)│                           │ (Red Team)*   │
+     │ ───────────── │                           │ ───────────── │
+     │ API & error   │                           │ Adversarial;  │
+     │ clarity.      │                           │ NEVER blocks. │
+     └───────────────┘                           └───────────────┘
 ```
 
 ### 🔄 Architectural Pipeline Sequence Flow
 This sequence flow represents how the council acts, reviews, and validates code changes over time across your software development phases:
 
-```mermaid
-sequenceDiagram
-    autonumber
-    actor Dev as [DEVELOPER]
-    participant Ford as [FORD]
-    participant Dipper as [DIPPER]
-    participant Stan as [STAN]
-    participant Council as [COUNCIL]
-
-    Dev->>Ford: 1. Task
-    Ford->>Dipper: 2. Review
-    Note over Dipper: (Risk Audit)<br/>[verdict]
-    Dipper-->>Ford: 3. Response
-    Ford->>Stan: 4. Mandates Check
-    Note over Stan: (Laws Audit)<br/>[verdict]
-    Stan-->>Ford: 5. Response
-    Ford->>Council: 6. Consensus / Consensus Gate
-
-    rect rgb(20, 30, 45)
-        Note over Council: <b>[ PARALLEL REVIEW ]</b><br/>• MCGUCKET (Arch)<br/>• RUMBLE (Perf)<br/>• PACIFICA (Quality)<br/>• MABEL (Usability)<br/>• SOOS (Docs)<br/><br/><b>[ OUT-OF-BAND ]</b><br/>• BILL (Validator)
-    end
-
-    Council-->>Ford: 7. Final Sign-off (Unanimous PASS)
-    Ford-->>Dev: 8. Report
+```text
+  [DEV]      [FORD]     [DIPPER]     [STAN]    [COUNCIL]
+    │          │           │           │           │
+    │─ 1.Task─>│           │           │           │
+    │          │─ 2.Risk──>│           │           │
+    │          │   (Audit) │           │           │
+    │          │<──[PASS]──│           │           │
+    │          │                       │           │
+    │          │── 3.Laws─────────────>│           │
+    │          │         (Audit)       │           │
+    │          │<────────[PASS]────────│           │
+    │          │                                   │
+    │          │── 4. Parallel Review Gate────────>│
+    │          │                                   │
+    │          │   [ PARALLEL AUDIT ]:             │
+    │          │   • McGucket (Architecture)       │
+    │          │   • Rumble   (Performance)        │
+    │          │   • Pacifica (Code Quality)       │
+    │          │   • Mabel    (Usability / DX)     │
+    │          │   • Soos     (Docs / Gaps)        │
+    │          │                                   │
+    │          │   [ OUT-OF-BAND ]:                │
+    │          │   • Bill Cipher (Red Team Scan)   │
+    │          │                                   │
+    │          │<── 5. Unanimous PASS Sign-off─────│
+    │          │                                   │
+    │<─6.Report│                                   │
 ```
 
 ---
