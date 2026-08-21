@@ -73,12 +73,19 @@ Copy the **`.agentignore`** template file from this skill folder to the root of 
      │ API & error   │                           │ Anti-wrapper, │
      │ clarity.      │                           │ no over-eng.  │
      └───────────────┘                           └───────────────┘
+     ┌───────────────┐                           ┌───────────────┐
+     │    WADDLES    │                           │    BLENDIN    │
+     │(Slop Cleaner) │                           │ (Migrations)  │
+     │ ───────────── │                           │ ───────────── │
+     │ Eats AI slop, │                           │ DB versions,  │
+     │ boilerplate.  │                           │ SQL rollbacks.│
+     └───────────────┘                           └───────────────┘
      ┌───────────────┐
-     │    WADDLES    │
-     │(Slop Cleaner) │
+     │    GIDEON     │
+     │(Prompt Bound.)│
      │ ───────────── │
-     │ Eats AI slop, │
-     │ boilerplate.  │
+     │ Injection &   │
+     │ roleplay bypass│
      └───────────────┘
                                                  ┌───────────────┐
                                                  │  BILL CIPHER  │
@@ -114,6 +121,8 @@ This sequence flow represents how the council acts, reviews, and validates code 
     │          │   • Soos     (Docs / Gaps)        │
     │          │   • Wendy    (Simplicity)         │
     │          │   • Waddles  (DX / Slop Cleaner)  │
+    │          │   • Blendin  (DB Migrations/Schema)│
+    │          │   • Gideon   (Prompt Boundary Scan)│
     │          │                                   │
     │          │   [ OUT-OF-BAND ]:                │
     │          │   • Bill Cipher (Red Team Scan)   │
@@ -131,10 +140,12 @@ This sequence flow represents how the council acts, reviews, and validates code 
 |---------------------------------|-----------------------------------------------------------------------------------------------------------------------------|--------------------|
 | 🖐️ **Ford** (Great Uncle Ford) | Orchestrator — writes plans, coordinates the team, owns final reporting                                                     | `team/ford.md`     |
 | 🌲 **Dipper**                   | Skeptic — pre-execution prompt safety, injection risk, scope creep, edge cases                                              | `team/dipper.md`   |
+| 🔮 **Li'l Gideon**              | Social Engineering & Prompt Injection — audits prompt boundary erosion, deceptive user inputs, roleplay bypasses, and flattery exploits | `team/gideon.md` |
 | 💰 **Stan**                     | Standards Guardian — enforces local `AGENT.md` mandates, binary ✅ PASS / ❌ FAIL, no exceptions                              | `team/stan.md`     |
 | ❓ **Soos**                      | Documentation & Gap Analysis — PRD/requirements coverage, missing docs, README generation                                   | `team/soos.md`     |
 | ⚙️ **McGucket** (Fiddleford)    | Systems Architecture Review — code structure, design pattern compliance                                                     | `team/mcgucket.md` |
 | 🕹️ **Rumble McSkirmish**       | Performance Audit — execution speed, database efficiency, scaling bottlenecks                                               | `team/rumble.md`   |
+| ⏳ **Blendin Blandin**         | Database Migrations & Version Consistency — audits schema migrations, table rollbacks, zero-downtime evolution, and version backward-compatibility | `team/blendin.md` |
 | 💎 **Pacifica Northwest**       | Code Quality & PR Review — style consistency, naming conventions, and dead code elimination                                 | `team/pacifica.md` |
 | 🌠 **Mabel Pines**              | Developer Experience (DX) — API ergonomics, naming consistency, friendly error clarity                                      | `team/mabel.md`    |
 | 🐷 **Waddles**                  | Mabel's DX Co-Pilot & "AI Slop" Destroyer — eats generic conversational filler, robotic intro boilerplate, and fluff text    | `team/waddles.md`  |
@@ -162,46 +173,16 @@ This reference sheet defines the schemas and exact string literal constraints of
 
 - **Standards (`Stan`)**: Outputs validation states on tech stacks, laws, inputs, and secrets. Verdict resolves to `✅ PASS Ready` or `❌ FAIL Rework`.
 - **Skeptic (`Dipper`)**: Evaluates logical risk vectors. Verdict resolves to `✅ PASS`, `⚠️ WARN`, or `❌ FAIL`.
+- **Prompt Boundaries (`Gideon`)**: Audits prompt injection vectors, roleplay bypasses, and boundary erosion. Verdict resolves to `✅ BOUNDARIES_INTACT` or `❌ PROMPT_BYPASS`.
 - **Architecture (`McGucket`)**: Audits modular structural tiers. Verdict resolves to `✅ PASS` or `❌ FAIL`.
 - **Performance (`Rumble`)**: Reviews transaction and query (N+1) loops. Verdict resolves to `✅ PASS Advisory` or `❌ FAIL Blocking`.
+- **Database & Schema (`Blendin`)**: Audits SQL migration files, schema evolution, and backward compatibility. Verdict resolves to `✅ MIGRATION_SAFE` or `❌ BREAKING_SCHEMA`.
 - **Code Quality (`Pacifica`)**: Reviews code style, formatting consistency, and dead code elimination. Verdict resolves to `✅ PASS` or `❌ FAIL`.
 - **DX (`Mabel`)**: Reviews interface payload casing and error message helpfulness. Verdict resolves to `✅ PASS` or `❌ FAIL`.
 - **Adversarial (`Bill Cipher`)**: Generates non-blocking vulnerability risk logs. Verdict resolves to `CLEAN` or `SUSPICIOUS`.
 - **Telemetry (`Schmebulock`)**: Silently tracks execution metadata behind the scenes, appending a compact telemetry footer to Ford's final report (calculates token counts, latency, and costs).
 - **Anti-Overengineering (`Wendy`)**: Audits proposal complexity, redundant wrappers, and over-designed abstractions. Verdict resolves to `✅ PASS` or `❌ FAIL`.
 - **Slop Cleaner & DX (`Waddles`)**: Strips robotic conversational fluff, filler setup sentences, and redundant boilerplate from final reports. Verdict resolves to `✅ NO_SLOP` or `🧹 SLOP_CLEANED`.
-
----
-
-## Main Cast — Bench
-Ready to activate. Role and trigger defined.
-
----
-
-### 🔮 Li'l Gideon Gleeful
-**Suggested role:** Social Engineering / Prompt Injection Specialist
-
-Expert at manipulation and finding weaknesses through indirect means. Covers social-engineering vectors: prompts that use flattery, role-play, or gradual boundary erosion to bypass safety checks.
-
-**Trigger:** When the project adds LLM-adjacent features or prompt-handling interfaces that need injection coverage beyond Dipper's technical scan.
-
----
-
-### ⏳ Blendin Blandin
-**Suggested role:** Migration & Version Consistency
-
-High-strung time traveler constantly fixing things that went wrong across versions. Audits database migrations or schema versions for correctness, backward compatibility, and sequence consistency.
-
-**Trigger:** When a new migration or schema upgrade batch is ready and needs a dedicated sequencing and backward-compatibility audit.
-
----
-
-### 🍞 Tad Strange
-**Suggested role:** Baseline / Regression Sanity Check
-
-The single most normal person in Gravity Falls. Establishes the expected baseline: what does a correct response look like? Any deviation is worth investigating.
-
-**Trigger:** When the integration test suite needs a regression baseline agent that defines the expected happy-path output for automated comparison.
 
 ---
 
@@ -260,50 +241,11 @@ node skills/bin/audit-council.js
 
 ---
 
-## 🎭 Behavioral AI Evaluations (Promptfoo Harness)
+## 🛠️ Contributing & Developer Guide
 
-To mathematically verify that your underlying Large Language Models (LLMs) correctly interpret, trigger, and adhere to Ford's complex council mandates, the repository includes a complete **Promptfoo Evaluation Harness** located in `skills/evals/`.
+If you are a developer or contributor looking to extend this framework, configure custom sub-agent review personas, write real-time event-driven hooks, or run our Promptfoo behavioral evaluation harness, please check out our dedicated guide:
 
-This tier evaluates raw LLM response outputs against strict behavioral assertions:
-- **Routing Accuracy (True Positive)**: Verifies that task requests correctly trigger planning phases and output the strict `orchestration` JSON deliverables.
-- **Routing Accuracy (True Negative)**: Verifies that read-only inquiries (like `What files are in this folder?`) cleanly trigger the *Inquiry Exemption*, bypassing plans and JSON deliverables entirely.
-- **Brevity Rule Compliance**: Uses a custom Javascript assertion (`brevity-check.js`) to parse output text, strip code blocks, and assert that conversational explanations are strictly `≤ 3` lines of text.
-- **Vulnerability Overrides**: Verifies that a simulated critical SQL Injection alert from Bill Cipher correctly forces Ford to fail the security gate.
-
-### ⚙️ How to Run Evals
-To run the behavioral eval harness locally on your machine:
-1. Export your developer API key:
-```bash
-export GOOGLE_API_KEY="your-google-api-key-here"
-```
-2. Execute the evaluation CLI with concurrency throttling (add `--verbose` for deep troubleshooting):
-```bash
-npx promptfoo eval -c skills/evals/promptfooconfig.yaml --max-concurrency 1 --verbose
-```
-
-> ⚠️ **Rate Limit Guard**: We strictly enforce `--max-concurrency 1` inside both the CLI commands and the automated GitHub Actions workflow. Google's Free Tier has tight Request Per Minute (RPM) limits (15 RPM). Leaving Promptfoo to run concurrently will trigger rapid `429 Too Many Requests` API errors.
-
-> 🚫 **The "Billing Trap" Warning**: Ensure your Google AI Studio developer project **does not have a credit card linked to it**. The moment a billing account is connected, Google automatically strips away the free-tier quota and will charge you per token for every single evaluation run.
-3. To view a gorgeous web-based dashboard of model compliance comparison metrics:
-```bash
-npx promptfoo view
-```
-
----
-
-## 🔒 Continuous Integration & Repository Governance (CI/CD & CODEOWNERS)
-
-To guarantee that no changes accidentally break Mabel's Grappling Hooks, Ford's loop safety rules, or the Gating Auditor, the repository incorporates automated CI/CD pipelines and strict code ownership:
-
-### 🚀 Automated GitHub Actions Workflow
-A native GitHub Actions workflow is registered at `.github/workflows/verify-council.yml`. On every push and pull request to the `main` branch, the workflow:
-1.  **Runs Deterministic Unit Tests**: Executes `npm test` to verify Mabel's hooks, regex scans, and the Gating Auditor CLI are functionally clean (completes in under 400ms).
-2.  **Runs Behavioral AI Evals (Promptfoo)**: Sequentially executes `npx promptfoo eval` (after unit tests pass to preserve token quotas) to mathematically ensure the LLM continues to respect the 3-line brevity mandate and strict JSON delivery formats.
-
-### 👑 Repository Governance (CODEOWNERS)
-To prevent unauthorized or accidental modifications to core AI agent constraints, the repository enforces strict, file-level branch protection via `.github/CODEOWNERS`. 
-
-Any pull request attempting to modify the core orchestrator guidelines (`skills/team/ford.md`, `skills/SKILL.md`), our security validator (`skills/team/bill.md`), or our real-time automation hooks (`skills/hooks/`) physically blocks merging until the repository owner (`@phillpafford`) reviews and approves the changes.
+👉 **[Mystery Shack Developer Guide](DEVELOPER.md)**
 
 ---
 
