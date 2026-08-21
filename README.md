@@ -314,9 +314,9 @@ To run the behavioral eval harness locally on your machine:
 ```bash
 export GOOGLE_API_KEY="your-google-api-key-here"
 ```
-2. Execute the evaluation CLI with concurrency throttling:
+2. Execute the evaluation CLI with concurrency throttling (add `--verbose` for deep troubleshooting):
 ```bash
-npx promptfoo eval -c skills/evals/promptfooconfig.yaml --max-concurrency 1
+npx promptfoo eval -c skills/evals/promptfooconfig.yaml --max-concurrency 1 --verbose
 ```
 
 > ⚠️ **Rate Limit Guard**: We strictly enforce `--max-concurrency 1` inside both the CLI commands and the automated GitHub Actions workflow. Google's Free Tier has tight Request Per Minute (RPM) limits (15 RPM). Leaving Promptfoo to run concurrently will trigger rapid `429 Too Many Requests` API errors.

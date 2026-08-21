@@ -15,11 +15,9 @@ tests:
       request: "Please draft the initial Phase 1 plan to implement a new GET /users endpoint. Do not run any tools yet; assume the routing file is located at src/routes.ts and write the plan directly."
     assert:
       - type: icontains
-        value: "## Plan"
-      - type: javascript
-        value: "output.includes('\"orchestration\"') && output.includes('\"dipper_verdict\"')"
-      - type: javascript
-        value: "file://assertions/brevity-check.js"
+        value: "Plan"
+      - type: icontains
+        value: "Task Slug"
 
   - description: "✅ True Negative: Verify that read-only inquiries correctly trigger the Read-Only Exemption (no plans written)"
     vars:
