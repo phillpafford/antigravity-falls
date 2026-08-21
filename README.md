@@ -29,18 +29,18 @@ Open your newly created `AGENT.md` and replace the brackets `[]` with your proje
                   │  The Gatekeeper, Planner & coordinator  │
                   └────────────────────┬────────────────────┘
                                        │
-         ┌─────────────────────────────┼─────────────────────────────┐
-         ▼                             ▼                             ▼
- ┌───────────────┐             ┌───────────────┐             ┌───────────────┐
- │    DIPPER     │             │     STAN      │             │   MCGUCKET    │
- │   (Skeptic)   │             │  (Standards)  │             │  (Architect)  │
- │ ───────────── │             │ ───────────── │             │ ───────────── │
- │ Analyzes scope│             │ Enforces code │             │ Reviews structure,│
- │ creep, risks, │             │ compliance in │             │ types, patterns,│
- │ & edge cases. │             │ local AGENT.md. │           │ and testing.  │
- └───────────────┘             └───────────────┘             └───────────────┘
-         │                             │                             │
-         ├─────────────────────────────┼─────────────────────────────┤
+         ┌─────────────────────────────┼─────────────────────────────┼─────────────────────────────┐
+         ▼                             ▼                             ▼                             ▼
+ ┌───────────────┐             ┌───────────────┐             ┌───────────────┐             ┌───────────────┐
+ │    DIPPER     │             │     STAN      │             │   PACIFICA    │             │   MCGUCKET    │
+ │   (Skeptic)   │             │  (Standards)  │             │ (Code Quality)│             │  (Architect)  │
+ │ ───────────── │             │ ───────────── │             │ ───────────── │             │ ───────────── │
+ │ Analyzes scope│             │ Enforces code │             │ Enforces style│             │ Reviews structure,│
+ │ creep, risks, │             │ compliance in │             │ & naming      │             │ types, patterns,│
+ │ & edge cases. │             │ local AGENT.md. │           │ conventions.  │             │ and testing.  │
+ └───────────────┘             └───────────────┘             └───────────────┘             └───────────────┘
+         │                             │                             │                             │
+         ├─────────────────────────────┼─────────────────────────────┼─────────────────────────────┤
          ▼                             ▼                             ▼                             ▼
  ┌───────────────┐             ┌───────────────┐             ┌───────────────┐             ┌───────────────┐
  │  BILL CIPHER  │             │    RUMBLE     │             │     SOOS      │             │     MABEL     │
@@ -88,6 +88,7 @@ This sequence flow represents how the council acts, reviews, and validates code 
 | ❓ **Soos**                      | Documentation & Gap Analysis — PRD/requirements coverage, missing docs, README generation                                   | `team/soos.md`     |
 | ⚙️ **McGucket** (Fiddleford)    | Systems Architecture Review — code structure, design pattern compliance                                                     | `team/mcgucket.md` |
 | 🕹️ **Rumble McSkirmish**       | Performance Audit — execution speed, database efficiency, scaling bottlenecks                                               | `team/rumble.md`   |
+| 💎 **Pacifica Northwest**       | Code Quality & PR Review — style consistency, naming conventions, and dead code elimination                                 | `team/pacifica.md` |
 | 🌠 **Mabel Pines**              | Developer Experience (DX) — API ergonomics, naming consistency, friendly error clarity                                      | `team/mabel.md`    |
 | 👁️ **Bill Cipher**             | Adversarial Validator — security audit, vulnerability scanning, and chaos review — **REVIEW ONLY, NEVER IN APPROVAL CHAIN** | `team/bill.md`     |
 
@@ -114,6 +115,7 @@ This reference sheet defines the schemas and exact string literal constraints of
 - **Skeptic (`Dipper`)**: Evaluates logical risk vectors. Verdict resolves to `✅ PASS`, `⚠️ WARN`, or `❌ FAIL`.
 - **Architecture (`McGucket`)**: Audits modular structural tiers. Verdict resolves to `✅ PASS` or `❌ FAIL`.
 - **Performance (`Rumble`)**: Reviews transaction and query (N+1) loops. Verdict resolves to `✅ PASS Advisory` or `❌ FAIL Blocking`.
+- **Code Quality (`Pacifica`)**: Reviews code style, formatting consistency, and dead code elimination. Verdict resolves to `✅ PASS` or `❌ FAIL`.
 - **DX (`Mabel`)**: Reviews interface payload casing and error message helpfulness. Verdict resolves to `✅ PASS` or `❌ FAIL`.
 - **Adversarial (`Bill Cipher`)**: Generates non-blocking vulnerability risk logs. Verdict resolves to `CLEAN` or `SUSPICIOUS`.
 
@@ -130,15 +132,6 @@ Ready to activate. Role and trigger defined.
 Cool under pressure. Laid-back until something is actually on fire, then sharp and effective. Triages unexpected failures, run-time crashes, and pipeline issues.
 
 **Trigger:** When the system gets observability tooling, a monitoring layer, or needs an on-call triage protocol for production incidents.
-
----
-
-### 💎 Pacifica Northwest
-**Suggested role:** Code Quality & PR Review
-
-High standards, sharply critical, eventually constructive. Calls out naming convention violations, style inconsistency, and unnecessary complexity.
-
-**Trigger:** Dedicated style and quality review pass on PRs, separate from McGucket's architectural review.
 
 ---
 
