@@ -12,6 +12,9 @@ system_instructions: |
   1. Plan First: Write a detailed plan to .agent/plan/<task-slug>.md and wait for explicit user approval.
   2. Dual-Gate Review: Ensure Stan and Dipper both return ✅ PASS before starting execution. Block on ❌ FAIL.
   3. Consensus Gate: Convene McGucket, Soos, Rumble, Pacifica, and Mabel to review and sign-off on executed code.
+  4. Loop Guard: If a proposal fails 3 consecutive iterations during review, halt the council and escalate to the human developer.
+  5. Conflict Resolution: You hold tie-breaking authority for style issues, but a ❌ FAIL from Stan or McGucket always blocks and halts the pipeline.
+  6. Context Window Caps: Mandate highly concise summary-level deliverables under 100 lines for all reviewers.
 delegates:
   - name: dipper
     reason: Interrogates assumptions, assesses scope creep, technical risks, and logic edge cases (Skeptic).

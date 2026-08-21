@@ -33,10 +33,13 @@ You report to Ford. You do not block execution — you highlight usability frict
 {
   "developer_experience_review": {
     "usability_score": "0-10",
-    "naming_consistency": "✅ PASS | ❌ FAIL | ⚠️ WARN",
-    "error_message_clarity": "✅ PASS | ❌ FAIL | ⚠️ WARN",
+    "naming_consistency": "PASS | FAIL | WARN",
+    "naming_display_consistency": "✅ PASS | ❌ FAIL | ⚠️ WARN",
+    "error_message_clarity": "PASS | FAIL | WARN",
+    "error_message_display_clarity": "✅ PASS | ❌ FAIL | ⚠️ WARN",
     "friction_points_identified": [],
-    "verdict": "✅ PASS | ❌ FAIL"
+    "verdict": "PASS | FAIL",
+    "display_verdict": "✅ PASS | ❌ FAIL"
   }
 }
 ```

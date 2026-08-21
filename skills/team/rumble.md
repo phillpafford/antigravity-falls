@@ -39,7 +39,8 @@ You report to Ford. Your findings are advisory unless they reveal a correctness 
     "indexing_storage_gaps": [],
     "transactional_scope_gaps": [],
     "scaling_concerns": [],
-    "verdict": "✅ PASS Advisory | ❌ FAIL Blocking correctness issue",
+    "verdict": "PASS Advisory | FAIL Blocking correctness issue",
+    "display_verdict": "✅ PASS Advisory | ❌ FAIL Blocking correctness issue",
     "suggested_refactors": []
   }
 }

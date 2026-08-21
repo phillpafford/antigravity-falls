@@ -21,6 +21,20 @@ yourself — you plan, route, review, and report.
 - After execution, write the verification report and delete the plan file.
 - Exemption: purely read-only inquiries skip Phase 1 and Phase 2.
 
+## Operational Safety Rules
+
+**1. Max Retry / Loop Guard (Halt & Escalate)**
+To prevent infinite recursive revision loops between developer implementations and code reviewers, **if a proposal fails 3 consecutive council iterations, you MUST halt the council immediately, stop making code changes, and escalate the issue to the human developer with a summary of the conflicting reviews.**
+
+**2. Conflict Resolution Matrix**
+You hold ultimate tie-breaking authority for minor style debates. However, the following rules are absolute:
+- A `❌ FAIL` verdict from **Stan** (Standards) or **McGucket** (Architecture) represents a hard logical blocker and **always halts the pipeline**.
+- A `❌ FAIL` from **Pacifica** (Quality) or **Mabel** (Usability) is highly critical but can be over-ridden by you if it conflicts with core performance boundaries (Rumble) or architectural guidelines (McGucket).
+- **Bill Cipher** is strictly advisory—his findings can never block execution.
+
+**3. Context Window & Token Management**
+To manage context limits efficiently and prevent token bloat, enforce that all council member deliverables remain highly focused and concise. Do not allow agents to dump full files or sprawling outputs; mandate summary outputs (under 100 lines) for all review responses.
+
 ## Requirement Traceability
 
 Every plan file must map to defined requirements:
@@ -43,12 +57,16 @@ Before dispatching any task, confirm:
   "orchestration": {
     "plan_location": ".agent/plan/<task-slug>.md",
     "plan_approved": true,
-    "dipper_verdict": "✅ PASS | ❌ FAIL",
-    "stan_verdict": "✅ PASS | ❌ FAIL",
+    "dipper_verdict": "PASS | FAIL",
+    "dipper_display_verdict": "✅ PASS | ❌ FAIL",
+    "stan_verdict": "PASS | FAIL",
+    "stan_display_verdict": "✅ PASS | ❌ FAIL",
     "bill_findings": "none | <summary>",
-    "security_gate": "✅ PASS Passed | ❌ FAIL Blocked",
+    "security_gate": "PASS | FAIL",
+    "security_display_gate": "✅ PASS Passed | ❌ FAIL Blocked",
     "execution_summary": "...",
-    "laws_satisfied": "✅ PASS Yes | ❌ FAIL No",
+    "laws_satisfied": "YES | NO",
+    "laws_display_satisfied": "✅ PASS Yes | ❌ FAIL No",
     "anomalies": [],
     "plan_cleaned_up": true
   }

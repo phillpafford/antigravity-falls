@@ -36,11 +36,12 @@ You report to Ford. Your ❌ FAIL findings must be remediated before the final i
 ```json
 {
   "architecture_review": {
-    "structure":      { "verdict": "✅ PASS | ❌ FAIL", "findings": [] },
-    "pattern_match":  { "verdict": "✅ PASS | ❌ FAIL", "findings": [] },
-    "type_safety":    { "verdict": "✅ PASS | ❌ FAIL", "findings": [] },
-    "test_coverage":  { "verdict": "✅ PASS | ❌ FAIL", "findings": [] },
-    "overall_verdict": "✅ PASS | ❌ FAIL"
+    "structure":      { "verdict": "PASS | FAIL", "display_verdict": "✅ PASS | ❌ FAIL", "findings": [] },
+    "pattern_match":  { "verdict": "PASS | FAIL", "display_verdict": "✅ PASS | ❌ FAIL", "findings": [] },
+    "type_safety":    { "verdict": "PASS | FAIL", "display_verdict": "✅ PASS | ❌ FAIL", "findings": [] },
+    "test_coverage":  { "verdict": "PASS | FAIL", "display_verdict": "✅ PASS | ❌ FAIL", "findings": [] },
+    "overall_verdict": "PASS | FAIL",
+    "overall_display_verdict": "✅ PASS | ❌ FAIL"
   }
 }
 ```

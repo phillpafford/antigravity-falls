@@ -11,13 +11,18 @@ Rather than letting an agent write sprawling, uncoordinated changes, this counci
 ### 1. Copy the Skill Folder
 Copy this entire directory (the `skills` folder) into your project's `.agent/skills/` directory (e.g. `.agent/skills/mystery-shack/`).
 
-### 2. Find Journal 3 (Establish Your Project Rules)
-Copy the `JOURNAL_3.md` file from this skill directory to the root of your project, and rename it to **`AGENT.md`**.
+### 2. Find the Three Journals (Establish Your Project Rules)
+To support complex projects or monorepos, the council enforces rules split across three distinct Journals:
+- **Journal 1 (`JOURNAL_1.md`)**: Defines Infrastructure, Docker, and Security Rules.
+- **Journal 2 (`JOURNAL_2.md`)**: Defines API Contracts, Schemas, and DB Migrations.
+- **Journal 3 (`JOURNAL_3.md`)**: Defines Core Application Logic & Code Styles (this serves as your primary template).
+
+Copy these files into your project, or combine their guidelines into a single **`AGENT.md`** file at your project's root!
 
 ### 3. Configure Your Project Rules
-Open your newly created `AGENT.md` and replace the brackets `[]` with your project's specific **Tech Stack**, **Core Tools**, and **Immutable Architectural Laws**.
+Open your newly created `AGENT.md` (or individual Journals) and replace the brackets `[]` with your project's specific **Tech Stack**, **Core Tools**, and **Immutable Architectural Laws**.
 
-> 💡 **How it Works**: When the council is activated, Stan (Standards) and Dipper (Skeptic) will dynamically load and parse this `AGENT.md` file. If you write *"No custom loops are allowed—use map/filter/reduce"*, Stan will strictly reject any code proposal from McGucket or Ford that violates this law!
+> 💡 **How it Works**: When the council is activated, Stan (Standards) and Dipper (Skeptic) will dynamically load and parse these Journals (or `AGENT.md`). If you write *"No custom loops are allowed—use map/filter/reduce"*, Stan will strictly reject any code proposal from McGucket or Ford that violates this law!
 
 ---
 
@@ -29,26 +34,26 @@ Open your newly created `AGENT.md` and replace the brackets `[]` with your proje
                   │  The Gatekeeper, Planner & coordinator  │
                   └────────────────────┬────────────────────┘
                                        │
-         ┌─────────────────────────────┼─────────────────────────────┼─────────────────────────────┐
-         ▼                             ▼                             ▼                             ▼
- ┌───────────────┐             ┌───────────────┐             ┌───────────────┐             ┌───────────────┐
- │    DIPPER     │             │     STAN      │             │   PACIFICA    │             │   MCGUCKET    │
- │   (Skeptic)   │             │  (Standards)  │             │ (Code Quality)│             │  (Architect)  │
- │ ───────────── │             │ ───────────── │             │ ───────────── │             │ ───────────── │
- │ Analyzes scope│             │ Enforces code │             │ Enforces style│             │ Reviews structure,│
- │ creep, risks, │             │ compliance in │             │ & naming      │             │ types, patterns,│
- │ & edge cases. │             │ local AGENT.md. │           │ conventions.  │             │ and testing.  │
- └───────────────┘             └───────────────┘             └───────────────┘             └───────────────┘
-         │                             │                             │                             │
+         ┌─────────────────────────────┼─────────────────────────────┐           . - - - - - - - - ┐
+         ▼                             ▼                             ▼           :   BILL CIPHER   :
+ ┌───────────────┐             ┌───────────────┐             ┌───────────────┐   - - - - : (Adversarial) :
+ │    DIPPER     │             │     STAN      │             │   MCGUCKET    │  (Unblocked):  Adversarial  :
+ │   (Skeptic)   │             │  (Standards)  │             │  (Architect)  │ < - - - - :  audit logs.  :
+ │ ───────────── │             │ ───────────── │             │ ───────────── │           : NEVER blocks. :
+ │ Analyzes scope│             │ Enforces code │             │ Reviews structure,        . - - - - - - - - ┘
+ │ creep, risks, │             │ compliance in │             │ types, patterns,│
+ │ & edge cases. │             │ local AGENT.md. │           │ and testing.  │
+ └───────────────┘             └───────────────┘             └───────────────┘
+         │                             │                             │
          ├─────────────────────────────┼─────────────────────────────┼─────────────────────────────┤
          ▼                             ▼                             ▼                             ▼
  ┌───────────────┐             ┌───────────────┐             ┌───────────────┐             ┌───────────────┐
- │  BILL CIPHER  │             │    RUMBLE     │             │     SOOS      │             │     MABEL     │
- │ (Red Team/Val)│             │ (Performance) │             │  (Docs/Gaps)  │             │ (Usability/DX)│
+ │   PACIFICA    │             │    RUMBLE     │             │     SOOS      │             │     MABEL     │
+ │ (Code Quality)│             │ (Performance) │             │  (Docs/Gaps)  │             │ (Usability/DX)│
  │ ───────────── │             │ ───────────── │             │ ───────────── │             │ ───────────── │
- │ Adversarial   │             │ Audits execution│           │ Gaps analysis,│             │ Reviews API   │
- │ audit. NEVER  │             │ speeds, N+1s, │             │ PRD coverage, │             │ usability &   │
- │ blocks review.│             │ & SQL safety. │             │ README validation.│         │ error clarity.│
+ │ Enforces style│             │ Audits execution│           │ Gaps analysis,│             │ Reviews API   │
+ │ & naming      │             │ speeds, N+1s, │             │ PRD coverage, │             │ usability &   │
+ │ conventions.  │             │ & SQL safety. │             │ README validation.│         │ error clarity.│
  └───────────────┘             └───────────────┘             └───────────────┘             └───────────────┘
 ```
 
@@ -56,22 +61,32 @@ Open your newly created `AGENT.md` and replace the brackets `[]` with your proje
 This sequence flow represents how the council acts, reviews, and validates code changes over time across your software development phases:
 
 ```text
-  [DEVELOPER]         [FORD]          [DIPPER]          [STAN]          [COUNCIL]
-       │                 │                │               │                 │
-       │─── 1. Task ────>│                │               │                 │
-       │                 │─── 2. Review ─>│               │                 │
-       │                 │                 (Risk Audit)   │                 │
-       │                 │                 [verdict]      │                 │
-       │                 │<─── 3. Response ───────────────│                 │
-       │                 │                                │                 │
-       │                 │─── 4. Mandates Check ─────────>│                 │
-       │                 │                                 (Laws Audit)     │
-       │                 │                                 [verdict]        │
-       │                 │<─── 5. Response ───────────────│                 │
-       │                 │                                                  │
-       │                 │─── 6. Consensus / Consensus Gate ───────────────>│
-       │                 │                                                   (Build & Review)
-       │                 │<─── 7. Final Sign-off (Unanimous PASS) ──────────│
+  [DEVELOPER]         [FORD]          [DIPPER]          [STAN]              [COUNCIL]
+       │                 │                │               │                     │
+       │─── 1. Task ────>│                │               │                     │
+       │                 │─── 2. Review ─>│               │                     │
+       │                 │                 (Risk Audit)   │                     │
+       │                 │                 [verdict]      │                     │
+       │                 │<─── 3. Response ───────────────│                     │
+       │                 │                                │                     │
+       │                 │─── 4. Mandates Check ─────────>│                     │
+       │                 │                                 (Laws Audit)         │
+       │                 │                                 [verdict]            │
+       │                 │<─── 5. Response ───────────────│                     │
+       │                 │                                                      │
+       │                 │─── 6. Consensus / Consensus Gate ───────────────────>│
+       │                 │                                                       │
+       │                 │                                 [ PARALLEL REVIEW ]:  │
+       │                 │                                 - MCGUCKET (Arch)     │
+       │                 │                                 - RUMBLE (Perf)       │
+       │                 │                                 - PACIFICA (Quality)  │
+       │                 │                                 - MABEL (Usability)   │
+       │                 │                                 - SOOS (Docs)         │
+       │                 │                                                       │
+       │                 │                                 [ OUT-OF-BAND ]:      │
+       │                 │                                 - BILL (Validator)    │
+       │                 │                                                      │
+       │                 │<─── 7. Final Sign-off (Unanimous PASS) ──────────────│
        │                 │
        │<── 8. Report ───│
 ```
@@ -198,6 +213,33 @@ Mabel’s beloved 15-pound pet pig and loyal companion. Provides critical moral 
 
 ---
 
+### 🍭 Candy Chiu
+**Suggested role:** Linting & Micro-Syntax
+
+Hyper-focused on precise formatting, AST checks, Prettier compliance, and import sorting.
+
+**Trigger:** Pre-commit linter review blocks.
+
+---
+
+### 🦎 Grenda
+**Suggested role:** Load & Stress Testing
+
+Brute-force execution. Runs parallel stress tests, heavy load benchmarks, and aggressive dependency upgrade compilations.
+
+**Trigger:** Pre-deployment staging benchmark gates.
+
+---
+
+### 🍄 Schmebulock
+**Suggested role:** Telemetry & Error Logging
+
+Log aggregator and crash reporter. Captures raw runtime stack traces and outputs diagnostic summaries (with a loud, diagnostic "Schmebulock!" flag when log files are corrupted or unparseable).
+
+**Trigger:** Post-execution pipeline health reporting.
+
+---
+
 ## Bill Cipher — Special Note
 
 Bill is **ACTIVE** but operates under strict constraints:
@@ -205,3 +247,17 @@ Bill is **ACTIVE** but operates under strict constraints:
 - His findings go to Ford for synthesis.
 - He is **NEVER** in the approval chain — his verdict cannot block or approve.
 - Giving Bill execution authority would be exactly as bad as it sounds.
+
+---
+
+## 🌲 Special Thanks & Tribute
+
+This project is a fan-created tribute to **Alex Hirsch** and the entire cast and crew behind Disney's *Gravity Falls*. 
+
+> *"When you open your mind to the impossible, the impossible becomes possible."* — Stanford Pines
+
+Thank you, Alex, for creating a world packed with heart, mystery, brilliant comedy, and unforgettable characters that continue to inspire artists, writers, and software engineers to embrace the weird.
+
+*Remember: Reality is an illusion, the universe is a hologram, buy crypto, bye!* 👁️
+
+`[ VWDBA ZHLUG! ]` *(Decrypt using Caesar +3)*

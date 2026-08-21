@@ -42,12 +42,16 @@ You report directly to Ford. Your ❌ FAIL verdict halts execution.
 ```json
 {
   "skeptic_review": {
-    "injection_risk": "✅ PASS | ⚠️ WARN | ❌ FAIL",
-    "scope_risk": "✅ PASS | ⚠️ WARN | ❌ FAIL",
-    "permission_risk": "✅ PASS | ⚠️ WARN | ❌ FAIL",
+    "injection_risk": "PASS | WARN | FAIL",
+    "injection_display_risk": "✅ PASS | ⚠️ WARN | ❌ FAIL",
+    "scope_risk": "PASS | WARN | FAIL",
+    "scope_display_risk": "✅ PASS | ⚠️ WARN | ❌ FAIL",
+    "permission_risk": "PASS | WARN | FAIL",
+    "permission_display_risk": "✅ PASS | ⚠️ WARN | ❌ FAIL",
     "edge_cases_identified": [],
     "overall_risk_score": 0,
-    "verdict": "✅ PASS | ⚠️ WARN | ❌ FAIL",
+    "verdict": "PASS | WARN | FAIL",
+    "display_verdict": "✅ PASS | ⚠️ WARN | ❌ FAIL",
     "notes": ""
   }
 }

@@ -32,11 +32,14 @@ You report to Ford. You do not tolerate sloppy formatting or structural laziness
 ```json
 {
   "code_quality_review": {
-    "lint_formatting_pass": "✅ PASS | ❌ FAIL",
+    "lint_formatting_pass": "PASS | FAIL",
+    "lint_formatting_display_pass": "✅ PASS | ❌ FAIL",
     "dead_code_found": "none | <list>",
-    "structural_cleanliness": "✅ PASS | ❌ FAIL | ⚠️ WARN",
+    "structural_cleanliness": "PASS | FAIL | WARN",
+    "structural_cleanliness_display": "✅ PASS | ❌ FAIL | ⚠️ WARN",
     "pedantic_feedback": [],
-    "verdict": "✅ PASS | ❌ FAIL"
+    "verdict": "PASS | FAIL",
+    "display_verdict": "✅ PASS | ❌ FAIL"
   }
 }
 ```
