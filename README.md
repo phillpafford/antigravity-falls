@@ -67,12 +67,19 @@ Copy the **`.agentignore`** template file from this skill folder to the root of 
      │ & SQL safety. │                           │ & READMEs.    │
      └───────────────┘                           └───────────────┘
      ┌───────────────┐                           ┌───────────────┐
-     │     MABEL     │                           │  BILL CIPHER  │
-     │ (Usability/DX)│                           │ (Red Team)*   │
+     │     MABEL     │                           │     WENDY     │
+     │ (Usability/DX)│                           │ (Simplicity)  │
      │ ───────────── │                           │ ───────────── │
-     │ API & error   │                           │ Adversarial;  │
-     │ clarity.      │                           │ NEVER blocks. │
+     │ API & error   │                           │ Anti-wrapper, │
+     │ clarity.      │                           │ no over-eng.  │
      └───────────────┘                           └───────────────┘
+                                                 ┌───────────────┐
+                                                 │  BILL CIPHER  │
+                                                 │ (Red Team)*   │
+                                                 │ ───────────── │
+                                                 │ Adversarial;  │
+                                                 │ NEVER blocks. │
+                                                 └───────────────┘
 ```
 
 ### 🔄 Architectural Pipeline Sequence Flow
@@ -98,6 +105,7 @@ This sequence flow represents how the council acts, reviews, and validates code 
     │          │   • Pacifica (Code Quality)       │
     │          │   • Mabel    (Usability / DX)     │
     │          │   • Soos     (Docs / Gaps)        │
+    │          │   • Wendy    (Simplicity)         │
     │          │                                   │
     │          │   [ OUT-OF-BAND ]:                │
     │          │   • Bill Cipher (Red Team Scan)   │
@@ -122,6 +130,7 @@ This sequence flow represents how the council acts, reviews, and validates code 
 | 💎 **Pacifica Northwest**       | Code Quality & PR Review — style consistency, naming conventions, and dead code elimination                                 | `team/pacifica.md` |
 | 🌠 **Mabel Pines**              | Developer Experience (DX) — API ergonomics, naming consistency, friendly error clarity                                      | `team/mabel.md`    |
 | 👁️ **Bill Cipher**             | Adversarial Validator — security audit, vulnerability scanning, and chaos review — **REVIEW ONLY, NEVER IN APPROVAL CHAIN** | `team/bill.md`     |
+| 🪓 **Wendy Corduroy**           | Anti-Overengineering — flags wrapper bloat, cuts over-designed abstractions, enforces simplicity                            | `team/wendy.md`    |
 
 ### 📊 Roster JSON Deliverables & Verdict Value Reference
 This reference sheet defines the schemas and exact string literal constraints of the JSON deliverables returned by each active agent. Parsing pipelines, scripts, and CI/CD tools can use this to programmatically process agent verdicts.
@@ -150,20 +159,12 @@ This reference sheet defines the schemas and exact string literal constraints of
 - **DX (`Mabel`)**: Reviews interface payload casing and error message helpfulness. Verdict resolves to `✅ PASS` or `❌ FAIL`.
 - **Adversarial (`Bill Cipher`)**: Generates non-blocking vulnerability risk logs. Verdict resolves to `CLEAN` or `SUSPICIOUS`.
 - **Telemetry (`Schmebulock`)**: Silently tracks execution metadata behind the scenes, appending a compact telemetry footer to Ford's final report (calculates token counts, latency, and costs).
+- **Anti-Overengineering (`Wendy`)**: Audits proposal complexity, redundant wrappers, and over-designed abstractions. Verdict resolves to `✅ PASS` or `❌ FAIL`.
 
 ---
 
 ## Main Cast — Bench
 Ready to activate. Role and trigger defined.
-
----
-
-### 🪓 Wendy Corduroy
-**Suggested role:** Ops / Incident Response
-
-Cool under pressure. Laid-back until something is actually on fire, then sharp and effective. Triages unexpected failures, run-time crashes, and pipeline issues.
-
-**Trigger:** When the system gets observability tooling, a monitoring layer, or needs an on-call triage protocol for production incidents.
 
 ---
 
