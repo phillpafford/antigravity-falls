@@ -28,13 +28,13 @@ Look for potential security leaks or unauthorized logical bypasses:
 
 Ensure the plan or code explicitly handles typical exceptional paths:
 
-| Scenario | What to verify |
-|---|---|
-| **Empty Result Set** | Does the code expect an array/collection to be empty? Does it throw, or return an empty state elegantly? |
-| **Null or Missing Fields** | If optional fields are omitted in the input payload, does the code assign robust defaults or handle `undefined` without crashing? |
-| **Concurrency & Race Conditions** | If multiple operations write to the same resource, are there transactional safeties, locks, or atomic states? |
-| **Network & Outage Failures** | What happens if an external API or database is temporarily offline? Are there timeouts and graceful try/catch blocks? |
-| **Large Datasets** | Does a retrieval query lack limit boundaries? Any bulk collection retrieve should include pagination or strict maximum limits to prevent memory exhaustion. |
+| Scenario                          | What to verify                                                                                                                                              |
+|-----------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Empty Result Set**              | Does the code expect an array/collection to be empty? Does it throw, or return an empty state elegantly?                                                    |
+| **Null or Missing Fields**        | If optional fields are omitted in the input payload, does the code assign robust defaults or handle `undefined` without crashing?                           |
+| **Concurrency & Race Conditions** | If multiple operations write to the same resource, are there transactional safeties, locks, or atomic states?                                               |
+| **Network & Outage Failures**     | What happens if an external API or database is temporarily offline? Are there timeouts and graceful try/catch blocks?                                       |
+| **Large Datasets**                | Does a retrieval query lack limit boundaries? Any bulk collection retrieve should include pagination or strict maximum limits to prevent memory exhaustion. |
 
 ---
 

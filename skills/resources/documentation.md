@@ -25,16 +25,16 @@ If the project exposes an API or library interface, ensure that each exported bo
 
 ## 3. Severity Assignment for Documentation Gaps
 
-| Severity | Condition |
-|---|---|
-| **critical** | Missing auth or initialization documentation (consumers cannot start the application). |
-| **critical** | Missing critical error states/codes (consumers cannot recover from errors). |
-| **high** | Feature or endpoint is implemented in code but entirely omitted in the public specification/README. |
-| **high** | Public interface schema mismatch (documented types or fields differ from the actual code). |
-| **medium** | Missing description tags or parameter descriptions in schemas. |
-| **medium** | Local `DEVELOPMENT.md` or README lacks a required configuration block. |
-| **low** | Missing realistic example payloads or return values. |
-| **low** | Vague or grammatically incorrect description prose. |
+| Severity     | Condition                                                                                           |
+|--------------|-----------------------------------------------------------------------------------------------------|
+| **critical** | Missing auth or initialization documentation (consumers cannot start the application).              |
+| **critical** | Missing critical error states/codes (consumers cannot recover from errors).                         |
+| **high**     | Feature or endpoint is implemented in code but entirely omitted in the public specification/README. |
+| **high**     | Public interface schema mismatch (documented types or fields differ from the actual code).          |
+| **medium**   | Missing description tags or parameter descriptions in schemas.                                      |
+| **medium**   | Local `DEVELOPMENT.md` or README lacks a required configuration block.                              |
+| **low**      | Missing realistic example payloads or return values.                                                |
+| **low**      | Vague or grammatically incorrect description prose.                                                 |
 
 ---
 

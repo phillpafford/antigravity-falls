@@ -40,44 +40,87 @@ Open your newly created `AGENT.md` and replace the brackets `[]` with your proje
  │ & edge cases. │             │ local AGENT.md. │           │ and testing.  │
  └───────────────┘             └───────────────┘             └───────────────┘
          │                             │                             │
-         ▼                             ▼                             ▼
- ┌───────────────┐             ┌───────────────┐             ┌───────────────┐
- │  BILL CIPHER  │             │    RUMBLE     │             │     SOOS      │
- │ (Red Team/Val)│             │ (Performance) │             │  (Docs/Gaps)  │
- │ ───────────── │             │ ───────────── │             │ ───────────── │
- │ Adversarial   │             │ Audits execution│           │ Gaps analysis,│
- │ audit. NEVER  │             │ speeds, N+1s, │             │ PRD coverage, │
- │ blocks review.│             │ & SQL safety. │             │ README validation.│
- └───────────────┘             └───────────────┘             └───────────────┘
+         ├─────────────────────────────┼─────────────────────────────┤
+         ▼                             ▼                             ▼                             ▼
+ ┌───────────────┐             ┌───────────────┐             ┌───────────────┐             ┌───────────────┐
+ │  BILL CIPHER  │             │    RUMBLE     │             │     SOOS      │             │     MABEL     │
+ │ (Red Team/Val)│             │ (Performance) │             │  (Docs/Gaps)  │             │ (Usability/DX)│
+ │ ───────────── │             │ ───────────── │             │ ───────────── │             │ ───────────── │
+ │ Adversarial   │             │ Audits execution│           │ Gaps analysis,│             │ Reviews API   │
+ │ audit. NEVER  │             │ speeds, N+1s, │             │ PRD coverage, │             │ usability &   │
+ │ blocks review.│             │ & SQL safety. │             │ README validation.│         │ error clarity.│
+ └───────────────┘             └───────────────┘             └───────────────┘             └───────────────┘
+```
+
+### 🔄 Architectural Pipeline Sequence Flow
+This sequence flow represents how the council acts, reviews, and validates code changes over time across your software development phases:
+
+```text
+  [DEVELOPER]         [FORD]          [DIPPER]          [STAN]          [COUNCIL]
+       │                 │                │               │                 │
+       │─── 1. Task ────>│                │               │                 │
+       │                 │─── 2. Review ─>│               │                 │
+       │                 │                 (Risk Audit)   │                 │
+       │                 │                 [verdict]      │                 │
+       │                 │<─── 3. Response ───────────────│                 │
+       │                 │                                │                 │
+       │                 │─── 4. Mandates Check ─────────>│                 │
+       │                 │                                 (Laws Audit)     │
+       │                 │                                 [verdict]        │
+       │                 │<─── 5. Response ───────────────│                 │
+       │                 │                                                  │
+       │                 │─── 6. Consensus / Consensus Gate ───────────────>│
+       │                 │                                                   (Build & Review)
+       │                 │<─── 7. Final Sign-off (Unanimous PASS) ──────────│
+       │                 │
+       │<── 8. Report ───│
 ```
 
 ---
 
 ## Active — Currently Deployed
 
-| Character | Role | Skill File |
-|-----------|------|------------|
-| **Ford** (Great Uncle Ford) | Orchestrator — writes plans, coordinates the team, owns final reporting | `team/orchestrator.md` |
-| **Dipper** | Skeptic — pre-execution prompt safety, injection risk, scope creep, edge cases | `team/skeptic.md` |
-| **Stan** | Standards Guardian — enforces local `AGENT.md` mandates, binary ✅ PASS / ❌ FAIL, no exceptions | `team/standards.md` |
-| **Soos** | Documentation & Gap Analysis — PRD/requirements coverage, missing docs, README generation | `team/soos.md` |
-| **McGucket** (Fiddleford) | Systems Architecture Review — code structure, design pattern compliance | `team/mcgucket.md` |
-| **Rumble McSkirmish** | Performance Audit — execution speed, database efficiency, scaling bottlenecks | `team/rumble.md` |
-| **Bill Cipher** | Adversarial Validator — security audit, vulnerability scanning, and chaos review — **REVIEW ONLY, NEVER IN APPROVAL CHAIN** | `team/validator.md` |
+| Character                   | Role                                                                                                                        | Skill File         |
+|-----------------------------|-----------------------------------------------------------------------------------------------------------------------------|--------------------|
+| **Ford** (Great Uncle Ford) | Orchestrator — writes plans, coordinates the team, owns final reporting                                                     | `team/ford.md`     |
+| **Dipper**                  | Skeptic — pre-execution prompt safety, injection risk, scope creep, edge cases                                              | `team/dipper.md`   |
+| **Stan**                    | Standards Guardian — enforces local `AGENT.md` mandates, binary ✅ PASS / ❌ FAIL, no exceptions                              | `team/stan.md`     |
+| **Soos**                    | Documentation & Gap Analysis — PRD/requirements coverage, missing docs, README generation                                   | `team/soos.md`     |
+| **McGucket** (Fiddleford)   | Systems Architecture Review — code structure, design pattern compliance                                                     | `team/mcgucket.md` |
+| **Rumble McSkirmish**       | Performance Audit — execution speed, database efficiency, scaling bottlenecks                                               | `team/rumble.md`   |
+| **Mabel Pines**             | Developer Experience (DX) — API ergonomics, naming consistency, friendly error clarity                                      | `team/mabel.md`    |
+| **Bill Cipher**             | Adversarial Validator — security audit, vulnerability scanning, and chaos review — **REVIEW ONLY, NEVER IN APPROVAL CHAIN** | `team/bill.md`     |
+
+### 📊 Roster JSON Deliverables & Verdict Value Reference
+This reference sheet defines the schemas and exact string literal constraints of the JSON deliverables returned by each active agent. Parsing pipelines, scripts, and CI/CD tools can use this to programmatically process agent verdicts.
+
+```text
+                      [STAN] (Standards)
+                     "tech_stack_match" 
+             ┌─────────── "verdict" ───────────┐
+             │                                 │
+     "dipper_verdict"                    "overall_verdict"
+             │                                 │
+    [FORD] (Orchestrator)              [MCGUCKET] (Architecture)
+             │                                 │
+     "security_gate"                     "test_coverage"
+             │                                 │
+             └─────────── "verdict" ───────────┘
+                     "injection_risk"
+                    [DIPPER] (Skeptic)
+```
+
+- **Standards (`Stan`)**: Outputs validation states on tech stacks, laws, inputs, and secrets. Verdict resolves to `✅ PASS Ready` or `❌ FAIL Rework`.
+- **Skeptic (`Dipper`)**: Evaluates logical risk vectors. Verdict resolves to `✅ PASS`, `⚠️ WARN`, or `❌ FAIL`.
+- **Architecture (`McGucket`)**: Audits modular structural tiers. Verdict resolves to `✅ PASS` or `❌ FAIL`.
+- **Performance (`Rumble`)**: Reviews transaction and query (N+1) loops. Verdict resolves to `✅ PASS Advisory` or `❌ FAIL Blocking`.
+- **DX (`Mabel`)**: Reviews interface payload casing and error message helpfulness. Verdict resolves to `✅ PASS` or `❌ FAIL`.
+- **Adversarial (`Bill Cipher`)**: Generates non-blocking vulnerability risk logs. Verdict resolves to `CLEAN` or `SUSPICIOUS`.
 
 ---
 
 ## Main Cast — Bench
 Ready to activate. Role and trigger defined.
-
----
-
-### Mabel Pines
-**Suggested role:** Developer Experience (DX) / API Usability
-
-Wildly optimistic, brings heart and levity. Reviews whether endpoints/interfaces are human-readable, error messages are actionable, and the overall developer interface feels intuitive.
-
-**Trigger:** When the API spec or interface is published and needs a consumer usability and ergonomics pass from the perspective of an external developer.
 
 ---
 

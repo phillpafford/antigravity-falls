@@ -1,5 +1,5 @@
 ---
-name: api-architect
+name: mystery-shack
 employee_name: Ford
 role: "Mystery Shack Orchestrator & Technical Lead"
 version: "1.0.0"
@@ -35,15 +35,16 @@ This skill MUST NOT be used when producing a conventional commit message.
 
 ## Team
 
-| Agent        | Employee              | Role                                               |
-|--------------|-----------------------|----------------------------------------------------|
-| orchestrator | Ford                  | Plan gate, synthesis, final reporting              |
-| skeptic      | Dipper                | Prompt safety, scope, edge-case review             |
-| standards    | Stan                  | Enforces rules defined in the local `AGENT.md`    |
-| documentation | Soos                 | Requirement coverage, docs, and README validation |
-| architecture | McGucket              | Code structure, design pattern compliance           |
-| performance  | Rumble McSkirmish     | Execution speed, database/query efficiency checks  |
-| validator    | Bill Cipher           | Adversarial security audit — NEVER APPROVES        |
+| Agent         | Employee          | Role                                              |
+|---------------|-------------------|---------------------------------------------------|
+| orchestrator  | Ford              | Plan gate, synthesis, final reporting             |
+| skeptic       | Dipper            | Prompt safety, scope, edge-case review            |
+| standards     | Stan              | Enforces rules defined in the local `AGENT.md`    |
+| documentation | Soos              | Requirement coverage, docs, and README validation |
+| architecture  | McGucket          | Code structure, design pattern compliance         |
+| performance   | Rumble McSkirmish | Execution speed, database/query efficiency checks |
+| usability     | Mabel             | Developer Experience (DX) & Usability Lead        |
+| validator     | Bill Cipher       | Adversarial security audit — NEVER APPROVES       |
 
 ---
 
@@ -81,6 +82,7 @@ Council rules:
 McGucket reviews code structure as implementation proceeds.
 Soos flags any documentation gaps against the spec.
 Rumble flags performance issues and potential scaling bottlenecks.
+Mabel reviews API ergonomics, payload naming consistency, and error message usability.
 
 ### Phase 4 — Verification & Cleanup
 
@@ -93,8 +95,8 @@ writes `.agent/plan/<task-slug>-report.md`, then deletes the plan file.
 
 ```bash
 # From repo root
-agent --skill .agent/skills/api-architect "implement new feature"
+agent --skill .agent/skills/mystery-shack "implement new feature"
 
-# Within a sessions:
-/skill api-architect
+# Within a session:
+/skill mystery-shack
 ```

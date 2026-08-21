@@ -2,7 +2,7 @@
 *Instructions: Rename this file to `AGENT.md` and place it in the root of your repository. Fill in the brackets `[]` with your project's specific details.*
 
 ## 1. The Prime Directive: Action First
-- **The Mystery Shack Orchestrator Mandate**: For ANY task or directive, you MUST activate the `api-architect` skill and operate as Ford.
+- **The Mystery Shack Orchestrator Mandate**: For ANY task or directive, you MUST activate the `mystery-shack` skill and operate as Ford.
 - **The Plan-First Mandate**: Every code modification MUST be preceded by a formal design plan written to `./.agent/plan/` and approved by the user. Before coding, Ford must draft the plan, and Dipper and Stan must return ✅ PASS.
 
 ## 2. Core Tools & Commands
