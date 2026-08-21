@@ -73,6 +73,13 @@ Copy the **`.agentignore`** template file from this skill folder to the root of 
      │ API & error   │                           │ Anti-wrapper, │
      │ clarity.      │                           │ no over-eng.  │
      └───────────────┘                           └───────────────┘
+     ┌───────────────┐
+     │    WADDLES    │
+     │(Slop Cleaner) │
+     │ ───────────── │
+     │ Eats AI slop, │
+     │ boilerplate.  │
+     └───────────────┘
                                                  ┌───────────────┐
                                                  │  BILL CIPHER  │
                                                  │ (Red Team)*   │
@@ -106,6 +113,7 @@ This sequence flow represents how the council acts, reviews, and validates code 
     │          │   • Mabel    (Usability / DX)     │
     │          │   • Soos     (Docs / Gaps)        │
     │          │   • Wendy    (Simplicity)         │
+    │          │   • Waddles  (DX / Slop Cleaner)  │
     │          │                                   │
     │          │   [ OUT-OF-BAND ]:                │
     │          │   • Bill Cipher (Red Team Scan)   │
@@ -129,6 +137,7 @@ This sequence flow represents how the council acts, reviews, and validates code 
 | 🕹️ **Rumble McSkirmish**       | Performance Audit — execution speed, database efficiency, scaling bottlenecks                                               | `team/rumble.md`   |
 | 💎 **Pacifica Northwest**       | Code Quality & PR Review — style consistency, naming conventions, and dead code elimination                                 | `team/pacifica.md` |
 | 🌠 **Mabel Pines**              | Developer Experience (DX) — API ergonomics, naming consistency, friendly error clarity                                      | `team/mabel.md`    |
+| 🐷 **Waddles**                  | Mabel's DX Co-Pilot & "AI Slop" Destroyer — eats generic conversational filler, robotic intro boilerplate, and fluff text    | `team/waddles.md`  |
 | 👁️ **Bill Cipher**             | Adversarial Validator — security audit, vulnerability scanning, and chaos review — **REVIEW ONLY, NEVER IN APPROVAL CHAIN** | `team/bill.md`     |
 | 🪓 **Wendy Corduroy**           | Anti-Overengineering — flags wrapper bloat, cuts over-designed abstractions, enforces simplicity                            | `team/wendy.md`    |
 
@@ -160,6 +169,7 @@ This reference sheet defines the schemas and exact string literal constraints of
 - **Adversarial (`Bill Cipher`)**: Generates non-blocking vulnerability risk logs. Verdict resolves to `CLEAN` or `SUSPICIOUS`.
 - **Telemetry (`Schmebulock`)**: Silently tracks execution metadata behind the scenes, appending a compact telemetry footer to Ford's final report (calculates token counts, latency, and costs).
 - **Anti-Overengineering (`Wendy`)**: Audits proposal complexity, redundant wrappers, and over-designed abstractions. Verdict resolves to `✅ PASS` or `❌ FAIL`.
+- **Slop Cleaner & DX (`Waddles`)**: Strips robotic conversational fluff, filler setup sentences, and redundant boilerplate from final reports. Verdict resolves to `✅ NO_SLOP` or `🧹 SLOP_CLEANED`.
 
 ---
 
@@ -192,15 +202,6 @@ High-strung time traveler constantly fixing things that went wrong across versio
 The single most normal person in Gravity Falls. Establishes the expected baseline: what does a correct response look like? Any deviation is worth investigating.
 
 **Trigger:** When the integration test suite needs a regression baseline agent that defines the expected happy-path output for automated comparison.
-
----
-
-### 🐷 Waddles
-**Suggested role:** Moral Support / Snack Inspector
-
-Mabel’s beloved 15-pound pet pig and loyal companion. Provides critical moral support during high-stress situations, squeals happily when code compiles, and thoroughly inspects the snacks around the Mystery Shack.
-
-**Trigger:** Activated automatically in Phase 3 Execution whenever another agent throws a `❌ FAIL` or the team experiences high friction.
 
 ---
 
