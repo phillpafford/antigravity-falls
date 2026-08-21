@@ -266,7 +266,7 @@ Bill is **ACTIVE** but operates under strict constraints:
 
 ---
 
-## 🧗‍♀️ Mabel's Grappling Hook System (Automated Event Hooks)
+## 🪝 Mabel's Grappling Hook System (Automated Event Hooks)
 
 To automate code formatting, enforce security parameters, and ensure 100% strict JSON syntax formatting, the council incorporates **Mabel's Grappling Hook System**. 
 

@@ -2,7 +2,16 @@
 // Custom Promptfoo Javascript assertion to enforce the strict 3-line token hygiene rule.
 
 module.exports = function(output, context) {
-    // 1. Remove markdown code blocks (which contain the strict JSON deliverables or code diffs)
+    // 1. Strict Type Guard: Ensure output is a valid string before parsing
+    if (typeof output !== 'string') {
+        return {
+            pass: false,
+            score: 0.0,
+            reason: `❌ BREVITY ERROR: Expected LLM output to be a valid string, got: ${typeof output}`
+        };
+    }
+
+    // 2. Remove markdown code blocks (which contain the strict JSON deliverables or code diffs)
     const textWithoutCodeBlocks = output.replace(/```[\s\S]*?```/g, '').trim();
 
     // 2. Split into individual lines
