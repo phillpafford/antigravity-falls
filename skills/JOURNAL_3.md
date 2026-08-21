@@ -1,5 +1,5 @@
-# Project Charter & Mandates (AGENT.md)
-*Instructions: Rename this file to `AGENT.md` and place it in the root of your repository. Fill in the brackets `[]` with your project's specific details. Stan, Dipper, and the council will load and parse this file to enforce these rules.*
+# Journal 3: Core Application Logic & Code Styles (AGENT.md)
+*Instructions: This is Journal 3 of the Mystery Shack multi-journal architecture, serving as your primary code rules template. Place this file in your project's root as `AGENT.md` (or keep it as `JOURNAL_3.md` alongside `JOURNAL_1.md` and `JOURNAL_2.md` under `.agent/skills/` for complex multi-service projects).*
 
 ## 1. The Prime Directive: Action First
 - **The Mystery Shack Orchestrator Mandate**: For ANY task or directive, you MUST activate the `mystery-shack` skill and operate as Ford.

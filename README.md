@@ -11,8 +11,8 @@ Rather than letting an agent write sprawling, uncoordinated changes, this counci
 ### 1. Copy the Skill Folder
 Copy this entire directory (the `skills` folder) into your project's `.agent/skills/` directory (e.g. `.agent/skills/mystery-shack/`).
 
-### 2. Copy the AGENT.md Template (Establish Your Project Rules)
-Copy the **`AGENT_TEMPLATE.md`** file from this skill folder to the root of your project, and rename it to **`AGENT.md`**. This single, unified document serves as the absolute source of truth for your local tech stack, testing/linting commands, and architectural rules.
+### 2. Find Journal 3 (Establish Your Project Rules)
+Copy the **`JOURNAL_3.md`** file from this skill folder to the root of your project, and rename it to **`AGENT.md`**. This single, unified document serves as the absolute source of truth for your local tech stack, testing/linting commands, and architectural rules.
 
 ### 3. Configure Your Project Rules
 Open your newly created `AGENT.md` and replace the brackets `[]` with your project's specific **Tech Stack**, **Core Tools**, **Immutable Architectural Laws**, **Infrastructure Rules**, **API Contracts**, and **Database Standards**.
