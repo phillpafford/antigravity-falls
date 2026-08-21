@@ -277,3 +277,9 @@ Thank you, Alex, for creating a world packed with heart, mystery, brilliant come
 *Remember: Reality is an illusion, the universe is a hologram, buy crypto, bye!* 👁️
 
 `[ VWDBA ZHLUG! ]` *(Decrypt using Caesar +3)*
+
+---
+
+***
+
+**Disclaimer**: *Mystery Shack AI Agent Council is an independent, non-commercial open-source project and fan tribute. All Gravity Falls character names, lore, and concepts are the intellectual property of Alex Hirsch and Disney. This project is not affiliated with, sponsored by, or endorsed by Disney.*
