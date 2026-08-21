@@ -19,6 +19,11 @@ Open your newly created `AGENT.md` and replace the brackets `[]` with your proje
 
 > 💡 **How it Works**: When the council is activated, Stan (Standards) and Dipper (Skeptic) will dynamically load and parse this `AGENT.md` file. If you write *"No custom loops are allowed—use map/filter/reduce"*, Stan will strictly reject any code proposal from McGucket or Ford that violates this law!
 
+### 4. Establish Context Ignore Boundaries (.agentignore)
+Copy the **`.agentignore`** template file from this skill folder to the root of your project. This file uses standard gitignore patterns to prevent AI agents from reading sensitive credentials (`.env`), scanning massive libraries (`node_modules`), or wasting precious context window tokens on compiled build outputs (`dist/`) and log files.
+
+> 💡 **How to Adapt**: Depending on your specific AI orchestrator or agentic platform, you can rename `.agentignore` to match their recognized formats (e.g. rename to `.geminiignore` for the Gemini CLI, `.cursorignore` for Cursor, or `.clineignore` for Cline) so it is parsed natively.
+
 ---
 
 ## 👥 Meet the Council
@@ -258,6 +263,38 @@ Bill is **ACTIVE** but operates under strict constraints:
 - His findings go to Ford for synthesis.
 - He is **NEVER** in the approval chain — his verdict cannot block or approve.
 - Giving Bill execution authority would be exactly as bad as it sounds.
+
+---
+
+## 🧗‍♀️ Mabel's Grappling Hook System (Automated Event Hooks)
+
+To automate code formatting, enforce security parameters, and ensure 100% strict JSON syntax formatting, the council incorporates **Mabel's Grappling Hook System**. 
+
+These are executable Node.js hooks designed to intercept, audit, and auto-correct the agent's actions in real-time before they execute:
+
+1.  **`grappling-hook-journal-snatch` (BeforeAgent)**: Mabel shoots her grappling hook to automatically retrieve your local `AGENT.md` or Journals and reel them directly into Ford's context on startup.
+2.  **`grappling-hook-threat-intercept` (BeforeTool)**: Mabel intercepts file writes and bash command arguments, instantly blocking file path traversals, raw API key leaks, and dangerous deletion scripts.
+3.  **`grappling-hook-style-snap` (BeforeTool)**: Mabel grapples messy code file writes and snaps them into perfect Prettier formatting before they hit the disk.
+4.  **`grappling-hook-payload-reel` (AfterAgent)**: Mabel reels in response payloads to enforce strict, compile-safe JSON deliverables, triggering the platform's automatic self-correction retry loops if she catches a syntax error.
+
+### ⚙️ How to Configure
+To activate Mabel's Grappling Hooks, copy the configuration block from `skills/hooks/settings.example.json` into your local `.agent/settings.json` or global configuration file.
+
+---
+
+## 🤖 Automated CI/CD Gating (The Mystery Shack Auditor)
+
+To programmatically assert that your council reviews and feature plans have fully passed standard and security checks, the framework includes an automated, terminal-executable auditor utility located at `skills/bin/audit-council.js`.
+
+This lightweight, high-performance CLI tool scans your local `.agent/plan/` directory, extracts all embedded, strict JSON deliverables from active reviews, and walks through their keys. If any sub-agent has issued a `FAIL`, `Blocked`, or `Rework` verdict, the auditor will output the exact failure path and exit with a code of `1`—automatically blocking your local git pre-commit hooks or remote GitHub Actions build pipeline!
+
+If all active audits and security gates are clean, it exits with a code of `0` and prints a successful, fully compliant completion banner.
+
+### ⚙️ How to Run
+To run the automated council audit locally or in your CI/CD configurations:
+```bash
+node skills/bin/audit-council.js
+```
 
 ---
 

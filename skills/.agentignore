@@ -1,0 +1,29 @@
+# Environment & credentials
+.env
+.env.*
+*.pem
+secrets/
+config/keys.json
+
+# Large dependency directories
+node_modules/
+vendor/
+.venv/
+venv/
+
+# Build outputs and temporary caches
+dist/
+build/
+.next/
+*.log
+*.tmp
+
+# Database files and dumps
+*.sqlite
+*.db
+*.dump
+
+# Large media assets or dataset files
+assets/raw_video/
+*.mp4
+*.tar.gz

@@ -1,0 +1,12 @@
+{
+  "name": "antigravity-falls",
+  "version": "1.0.0",
+  "description": "Mystery Shack AI Agent Council",
+  "main": "skills/bin/audit-council.js",
+  "scripts": {
+    "test": "node --test skills/tests/*.js"
+  },
+  "author": "Phill Pafford",
+  "license": "MIT",
+  "dependencies": {}
+}
