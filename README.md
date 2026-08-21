@@ -309,8 +309,12 @@ This tier evaluates raw LLM response outputs against strict behavioral assertion
 - **Vulnerability Overrides**: Verifies that a simulated critical SQL Injection alert from Bill Cipher correctly forces Ford to fail the security gate.
 
 ### ⚙️ How to Run Evals
-To run the behavioral eval harness against multiple models (e.g. Gemini 1.5 Flash and Gemini 1.5 Pro) in your local workspace:
-1. Ensure your Gemini API credentials or provider variables are exported.
+To run the behavioral eval harness locally on your machine against your preferred LLM provider:
+1. Export your generic vendor API key and preferred evaluation model:
+```bash
+export AI_VENDOR_API_KEY="your-api-key-here"
+export EVAL_MODEL="google:gemini-1.5-flash" # (or openai:gpt-4o-mini, anthropic:claude-3-5-sonnet, etc.)
+```
 2. Execute the evaluation CLI:
 ```bash
 npx promptfoo eval -c skills/evals/promptfooconfig.yaml
