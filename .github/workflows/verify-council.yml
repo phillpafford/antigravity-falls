@@ -44,13 +44,15 @@ jobs:
         with:
           node-version: 24 # Upgraded to Node 24 (LTS) to resolve deprecation warnings
 
-      # Step A: Restore previous rate limit lockfile from the GitHub cache
+      # Step A: Restore previous rate limit lockfile from the GitHub cache using fallback keys
       - name: Restore Rate Limit Lock
         uses: actions/cache/restore@v4
         id: cache-rate-limit
         with:
           path: .agent/rate-limit-lock.txt
-          key: rate-limit-lock
+          key: rate-limit-lock-${{ github.run_id }}-${{ github.run_attempt }}
+          restore-keys: |
+            rate-limit-lock-
 
       # Step B: Check lockfile BEFORE running Promptfoo. If still under rate limit, fail-fast immediately!
       - name: Validate Cooldown Gate
@@ -92,5 +94,5 @@ jobs:
         uses: actions/cache/save@v4
         with:
           path: .agent/rate-limit-lock.txt
-          # Using run_id ensures the key is completely unique, forcing a cache save on failures
-          key: rate-limit-lock-${{ github.run_id }}
+          # Using unique run_id + attempt prevents immutable cache-layer save collisions
+          key: rate-limit-lock-${{ github.run_id }}-${{ github.run_attempt }}
