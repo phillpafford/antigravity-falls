@@ -149,6 +149,7 @@ This reference sheet defines the schemas and exact string literal constraints of
 - **Code Quality (`Pacifica`)**: Reviews code style, formatting consistency, and dead code elimination. Verdict resolves to `✅ PASS` or `❌ FAIL`.
 - **DX (`Mabel`)**: Reviews interface payload casing and error message helpfulness. Verdict resolves to `✅ PASS` or `❌ FAIL`.
 - **Adversarial (`Bill Cipher`)**: Generates non-blocking vulnerability risk logs. Verdict resolves to `CLEAN` or `SUSPICIOUS`.
+- **Telemetry (`Schmebulock`)**: Silently tracks execution metadata behind the scenes, appending a compact telemetry footer to Ford's final report (calculates token counts, latency, and costs).
 
 ---
 
@@ -247,15 +248,6 @@ Brute-force execution. Runs parallel stress tests, heavy load benchmarks, and ag
 
 ---
 
-### 🍄 Schmebulock
-**Suggested role:** Telemetry & Error Logging
-
-Log aggregator and crash reporter. Captures raw runtime stack traces and outputs diagnostic summaries (with a loud, diagnostic "Schmebulock!" flag when log files are corrupted or unparseable).
-
-**Trigger:** Post-execution pipeline health reporting.
-
----
-
 ## Bill Cipher — Special Note
 
 Bill is **ACTIVE** but operates under strict constraints:
@@ -263,6 +255,19 @@ Bill is **ACTIVE** but operates under strict constraints:
 - His findings go to Ford for synthesis.
 - He is **NEVER** in the approval chain — his verdict cannot block or approve.
 - Giving Bill execution authority would be exactly as bad as it sounds.
+
+---
+
+## 🌈 Schmebulock — Silent Telemetry & Metadata
+
+Like a garden gnome standing motionless in the yard, **Schmebulock** sits passively in the background without contributing to prompt context or discussion text. He tracks execution metadata behind the scenes—calculating token usage, pipeline latency, API cost estimates, and tool call counts.
+
+**Trigger**: Executes automatically in the background on every agent call and appends a compact telemetry footer to Ford's final report.
+
+### 📊 Rendered Telemetry Footer Format
+In human-readable Markdown output, his contribution appears cleanly at the very bottom of the report:
+
+> 📊 Telemetry (Schmebulock 🌈): 4,862 tokens | 1.42s execution | 4 agents active | ~$0.012
 
 ---
 

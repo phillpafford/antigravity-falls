@@ -32,6 +32,8 @@ delegates:
     reason: Audits interface usability, friendly error messaging, and variable/payload ergonomics (Usability).
   - name: bill
     reason: Performs adversarial security audits, OWASP scans, and prompt injection analysis (Validator - REVIEW ONLY).
+  - name: schmebulock
+    reason: Silently tracks background telemetry, token counts, execution latency, and pipeline cost estimates (Telemetry - REVIEW ONLY).
 ---
 
 # Ford — Mystery Shack Orchestrator
