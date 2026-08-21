@@ -19,6 +19,11 @@ Open your newly created `AGENT.md` and replace the brackets `[]` with your proje
 
 > 💡 **How it Works**: When the council is activated, Stan (Standards) and Dipper (Skeptic) will dynamically load and parse this `AGENT.md` file. If you write *"No custom loops are allowed—use map/filter/reduce"*, Stan will strictly reject any code proposal from McGucket or Ford that violates this law!
 
+### 4. Establish Context Ignore Boundaries (.agentignore)
+Copy the **`.agentignore`** template file from this skill folder to the root of your project. This file uses standard gitignore patterns to prevent AI agents from reading sensitive credentials (`.env`), scanning massive libraries (`node_modules`), or wasting precious context window tokens on compiled build outputs (`dist/`) and log files.
+
+> 💡 **How to Adapt**: Depending on your specific AI orchestrator or agentic platform, you can rename `.agentignore` to match their recognized formats (e.g. rename to `.geminiignore` for the Gemini CLI, `.cursorignore` for Cursor, or `.clineignore` for Cline) so it is parsed natively.
+
 ---
 
 ## 👥 Meet the Council
@@ -273,7 +278,23 @@ These are executable Node.js hooks designed to intercept, audit, and auto-correc
 4.  **`grappling-hook-payload-reel` (AfterAgent)**: Mabel reels in response payloads to enforce strict, compile-safe JSON deliverables, triggering the platform's automatic self-correction retry loops if she catches a syntax error.
 
 ### ⚙️ How to Configure
-To activate Mabel's Grappling Hooks, copy the configuration block from `skills/hooks/settings.example.json` into your local `.gemini/settings.json` or global configuration file.
+To activate Mabel's Grappling Hooks, copy the configuration block from `skills/hooks/settings.example.json` into your local `.agent/settings.json` or global configuration file.
+
+---
+
+## 🤖 Automated CI/CD Gating (The Mystery Shack Auditor)
+
+To programmatically assert that your council reviews and feature plans have fully passed standard and security checks, the framework includes an automated, terminal-executable auditor utility located at `skills/bin/audit-council.js`.
+
+This lightweight, high-performance CLI tool scans your local `.agent/plan/` directory, extracts all embedded, strict JSON deliverables from active reviews, and walks through their keys. If any sub-agent has issued a `FAIL`, `Blocked`, or `Rework` verdict, the auditor will output the exact failure path and exit with a code of `1`—automatically blocking your local git pre-commit hooks or remote GitHub Actions build pipeline!
+
+If all active audits and security gates are clean, it exits with a code of `0` and prints a successful, fully compliant completion banner.
+
+### ⚙️ How to Run
+To run the automated council audit locally or in your CI/CD configurations:
+```bash
+node skills/bin/audit-council.js
+```
 
 ---
 

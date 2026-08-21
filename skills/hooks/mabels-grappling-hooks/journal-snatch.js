@@ -15,7 +15,7 @@ process.stdin.on('end', () => {
             payload = JSON.parse(input);
         }
 
-        const projectDir = process.env.GEMINI_PROJECT_DIR || process.cwd();
+        const projectDir = process.env.AGENT_PROJECT_DIR || process.env.PROJECT_DIR || process.cwd();
         const agentFile = path.join(projectDir, 'AGENT.md');
         let injectedContext = '';
 

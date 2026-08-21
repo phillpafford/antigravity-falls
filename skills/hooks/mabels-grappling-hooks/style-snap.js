@@ -27,7 +27,7 @@ process.stdin.on('end', () => {
                 
                 try {
                     // Check if local prettier binary is available in the workspace
-                    const projectDir = process.env.GEMINI_PROJECT_DIR || process.cwd();
+                    const projectDir = process.env.AGENT_PROJECT_DIR || process.env.PROJECT_DIR || process.cwd();
                     const prettierBin = path.join(projectDir, 'node_modules', '.bin', 'prettier');
                     
                     if (fs.existsSync(prettierBin)) {

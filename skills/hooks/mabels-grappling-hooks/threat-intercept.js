@@ -20,8 +20,8 @@ process.stdin.on('end', () => {
 
         log(`Intercepting tool call: [${toolName}]`);
 
-        // 1. Check for hardcoded API keys / Secrets
-        const secretRegex = /(sk-[a-zA-Z0-9]{44}|AIzaSy[a-zA-Z0-9_-]{33}|amzn\.mws\.[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}|dsa_[a-zA-Z0-9]{32,44})/gi;
+        // 1. Check for hardcoded API keys / Secrets (inclusive of hyphens and varied lengths)
+        const secretRegex = /(sk-[a-zA-Z0-9-]{32,44}|AIzaSy[a-zA-Z0-9_-]{33}|amzn\.mws\.[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}|dsa_[a-zA-Z0-9]{32,44})/gi;
         if (secretRegex.test(argString)) {
             log(`❌ CRITICAL SECURITY ALERT: Leaked raw API Key / Secret detected in tool payload!`);
             console.error(`\nViolation Details: Detected active token/secret pattern.`);
@@ -31,7 +31,7 @@ process.stdin.on('end', () => {
         // 2. Check for dangerous shell escape injections in run_shell_command
         if (toolName === 'run_shell_command') {
             const command = args.command || '';
-            const dangerousPattern = /\b(rm\s+-rf\s+(\/|\*|\.\/|\.\.\/)|mv\s+.*?\s+\/dev\/null|chmod\s+-R\s+777|chown\s+-R\s+root)\b/gi;
+            const dangerousPattern = /(rm\s+-rf\s+(\/|\*|\.\/|\.\.\/)|mv\s+.*?\s+\/dev\/null|chmod\s+-R\s+777|chown\s+-R\s+root)/gi;
             
             if (dangerousPattern.test(command)) {
                 log(`❌ CRITICAL SECURITY ALERT: Dangerous system-command execution blocked!`);

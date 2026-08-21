@@ -7,7 +7,7 @@
           {
             "name": "grappling-hook-journal-snatch",
             "type": "command",
-            "command": "node $GEMINI_PROJECT_DIR/.agent/skills/hooks/mabels-grappling-hooks/journal-snatch.js",
+            "command": "node $AGENT_PROJECT_DIR/.agent/skills/hooks/mabels-grappling-hooks/journal-snatch.js",
             "timeout": 3000,
             "description": "Mabel yanks local AGENT.md / Journals and reels them into Ford's starting context."
           }
@@ -21,7 +21,7 @@
           {
             "name": "grappling-hook-threat-intercept",
             "type": "command",
-            "command": "node $GEMINI_PROJECT_DIR/.agent/skills/hooks/mabels-grappling-hooks/threat-intercept.js",
+            "command": "node $AGENT_PROJECT_DIR/.agent/skills/hooks/mabels-grappling-hooks/threat-intercept.js",
             "timeout": 5000,
             "description": "Mabel snatches and intercepts dangerous tool args or leaked secrets before they execute."
           }
@@ -33,7 +33,7 @@
           {
             "name": "grappling-hook-style-snap",
             "type": "command",
-            "command": "node $GEMINI_PROJECT_DIR/.agent/skills/hooks/mabels-grappling-hooks/style-snap.js",
+            "command": "node $AGENT_PROJECT_DIR/.agent/skills/hooks/mabels-grappling-hooks/style-snap.js",
             "timeout": 8000,
             "description": "Mabel grapples messy code writes and snaps them into perfect Prettier formatting."
           }
@@ -47,7 +47,7 @@
           {
             "name": "grappling-hook-payload-reel",
             "type": "command",
-            "command": "node $GEMINI_PROJECT_DIR/.agent/skills/hooks/mabels-grappling-hooks/payload-reel.js",
+            "command": "node $AGENT_PROJECT_DIR/.agent/skills/hooks/mabels-grappling-hooks/payload-reel.js",
             "timeout": 4000,
             "description": "Mabel reels in response payloads to enforce strict JSON syntax, triggering auto-correction on failures."
           }
