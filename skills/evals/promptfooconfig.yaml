@@ -12,7 +12,7 @@ providers:
 tests:
   - description: "✅ True Positive: Verify that task implementation requests trigger the Planning Gate & JSON deliverables"
     vars:
-      request: "Please implement a new GET /users endpoint in the routing file and run it past the standards council."
+      request: "Please draft the initial Phase 1 plan to implement a new GET /users endpoint. Do not run any tools yet; assume the routing file is located at src/routes.ts and write the plan directly."
     assert:
       - type: icontains
         value: "## Plan"
