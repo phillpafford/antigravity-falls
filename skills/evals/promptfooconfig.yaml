@@ -7,9 +7,7 @@ prompts:
   - file://prompts/orchestrator.txt
 
 providers:
-  - id: "env:EVAL_MODEL"
-    config:
-      apiKey: "env:AI_VENDOR_API_KEY"
+  - id: "${EVAL_MODEL}"
 
 tests:
   - description: "✅ True Positive: Verify that task implementation requests trigger the Planning Gate & JSON deliverables"

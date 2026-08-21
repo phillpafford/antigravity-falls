@@ -19,7 +19,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-cache: npm
-          node-version: 20
+          node-version: 24 # Upgraded to Node 24 (LTS) to resolve deprecation warnings
 
       - name: Execute Native Unit Tests
         run: npm test
@@ -35,14 +35,10 @@ jobs:
       - name: Setup Node.js Environment
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 24 # Upgraded to Node 24 (LTS) to resolve deprecation warnings
 
       - name: Run Promptfoo Evaluations
         run: npx promptfoo eval -c skills/evals/promptfooconfig.yaml
         env:
           EVAL_MODEL: "google:gemini-1.5-flash"
-          AI_VENDOR_API_KEY: ${{ secrets.AI_VENDOR_API_KEY }}
-          GOOGLE_API_KEY: ${{ secrets.AI_VENDOR_API_KEY }}
-          GEMINI_API_KEY: ${{ secrets.AI_VENDOR_API_KEY }}
-          OPENAI_API_KEY: ${{ secrets.AI_VENDOR_API_KEY }}
-          ANTHROPIC_API_KEY: ${{ secrets.AI_VENDOR_API_KEY }}
+          GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
