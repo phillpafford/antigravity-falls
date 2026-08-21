@@ -44,8 +44,53 @@ jobs:
         with:
           node-version: 24 # Upgraded to Node 24 (LTS) to resolve deprecation warnings
 
-      - name: Run Promptfoo Evaluations
-        run: npx promptfoo eval -c skills/evals/promptfooconfig.yaml --max-concurrency 1 --verbose
+      # Step A: Restore previous rate limit lockfile from the GitHub cache
+      - name: Restore Rate Limit Lock
+        uses: actions/cache/restore@v4
+        id: cache-rate-limit
+        with:
+          path: .agent/rate-limit-lock.txt
+          key: rate-limit-lock
+
+      # Step B: Check lockfile BEFORE running Promptfoo. If still under rate limit, fail-fast immediately!
+      - name: Validate Cooldown Gate
+        id: check-cooldown
+        run: |
+          if [ -f .agent/rate-limit-lock.txt ]; then
+            UNLOCK_TIME=$(cat .agent/rate-limit-lock.txt)
+            CURRENT_TIME=$(date +%s%3N)
+            if [ "$CURRENT_TIME" -lt "$UNLOCK_TIME" ]; then
+              COOLDOWN_MS=$((UNLOCK_TIME - CURRENT_TIME))
+              COOLDOWN_SEC=$(( (COOLDOWN_MS + 999) / 1000 ))
+              
+              echo "API is currently locked due to Google AI Studio Free Tier rate limits!"
+              echo "Must wait another $COOLDOWN_SEC seconds before re-running."
+              echo "cooldown_active=true" >> $GITHUB_OUTPUT
+              
+              # Write a beautiful status alert to the PR Step Summary page
+              echo "### ⚠️ Pipeline Skipped: Rate Limit Cooldown Active" >> $GITHUB_STEP_SUMMARY
+              echo "The previous job triggered a Google AI Studio **429 Too Many Requests** error." >> $GITHUB_STEP_SUMMARY
+              echo "To prevent burning Action minutes or spamming Google's API, the build has aborted." >> $GITHUB_STEP_SUMMARY
+              echo "" >> $GITHUB_STEP_SUMMARY
+              echo "⌛ **Safe to re-run in: \`${COOLDOWN_SEC} seconds\`**" >> $GITHUB_STEP_SUMMARY
+              
+              exit 1 # Instantly fail-fast inside 1 second!
+            fi
+          fi
+          echo "cooldown_active=false" >> $GITHUB_OUTPUT
+
+      # Step C: Execute our intelligent evaluations wrapper (only if cooldown is not active)
+      - name: Run Promptfoo Evaluations (Intelligent Wrapper)
+        if: steps.check-cooldown.outputs.cooldown_active != 'true'
+        run: node skills/bin/run-evals.js
         env:
           GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
-          PROMPTFOO_RETRIES: 2 # Limit retries to prevent endless pipeline hangs on rate limits
+
+      # Step D: Persist the lockfile back to the cache if a new 429 was intercepted
+      - name: Save Rate Limit Lock
+        if: always() # Run even if previous steps aborted
+        uses: actions/cache/save@v4
+        with:
+          path: .agent/rate-limit-lock.txt
+          # Using run_id ensures the key is completely unique, forcing a cache save on failures
+          key: rate-limit-lock-${{ github.run_id }}
