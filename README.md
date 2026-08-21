@@ -310,15 +310,18 @@ This tier evaluates raw LLM response outputs against strict behavioral assertion
 
 ### ⚙️ How to Run Evals
 To run the behavioral eval harness locally on your machine:
-1. Export your developer API key and preferred evaluation model:
+1. Export your developer API key:
 ```bash
-export GOOGLE_API_KEY="your-google-api-key"
-export EVAL_MODEL="google:gemini-1.5-flash" # (or google:gemini-1.5-pro, etc.)
+export GOOGLE_API_KEY="your-google-api-key-here"
 ```
-2. Execute the evaluation CLI:
+2. Execute the evaluation CLI with concurrency throttling:
 ```bash
-npx promptfoo eval -c skills/evals/promptfooconfig.yaml
+npx promptfoo eval -c skills/evals/promptfooconfig.yaml --max-concurrency 1
 ```
+
+> ⚠️ **Rate Limit Guard**: We strictly enforce `--max-concurrency 1` inside both the CLI commands and the automated GitHub Actions workflow. Google's Free Tier has tight Request Per Minute (RPM) limits (15 RPM). Leaving Promptfoo to run concurrently will trigger rapid `429 Too Many Requests` API errors.
+
+> 🚫 **The "Billing Trap" Warning**: Ensure your Google AI Studio developer project **does not have a credit card linked to it**. The moment a billing account is connected, Google automatically strips away the free-tier quota and will charge you per token for every single evaluation run.
 3. To view a gorgeous web-based dashboard of model compliance comparison metrics:
 ```bash
 npx promptfoo view

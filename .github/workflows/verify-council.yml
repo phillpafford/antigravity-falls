@@ -38,7 +38,6 @@ jobs:
           node-version: 24 # Upgraded to Node 24 (LTS) to resolve deprecation warnings
 
       - name: Run Promptfoo Evaluations
-        run: npx promptfoo eval -c skills/evals/promptfooconfig.yaml
+        run: npx promptfoo eval -c skills/evals/promptfooconfig.yaml --max-concurrency 1
         env:
-          EVAL_MODEL: "google:gemini-1.5-flash"
           GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}

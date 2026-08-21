@@ -7,7 +7,7 @@ prompts:
   - file://prompts/orchestrator.txt
 
 providers:
-  - id: "${EVAL_MODEL}"
+  - "google:gemini-3.5-flash"
 
 tests:
   - description: "✅ True Positive: Verify that task implementation requests trigger the Planning Gate & JSON deliverables"
