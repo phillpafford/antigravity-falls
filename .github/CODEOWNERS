@@ -1,0 +1,16 @@
+# .github/CODEOWNERS
+# Repository Governance & Guardrail Protections
+# Prevents accidental or unauthorized modifications to core AI agent constraints.
+
+# Global Default Owner
+* @phillpafford
+
+# Core Council Rules & Orchestration Configs
+/skills/SKILL.md            @phillpafford
+/skills/team/ford.md        @phillpafford
+
+# Automated Security, Formatting, & Context Hooks (Mabel's Grappling Hooks)
+/skills/hooks/              @phillpafford
+
+# Security Validator Persona
+/skills/team/bill.md        @phillpafford

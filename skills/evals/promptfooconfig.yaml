@@ -1,0 +1,45 @@
+# promptfooconfig.yaml
+# Mystery Shack AI Council - Behavioral Evaluation Harness
+
+description: "Validates Ford's (Orchestrator's) adherence to planning gates, brevity rules, and read-only exemptions."
+
+prompts:
+  - file://prompts/orchestrator.txt
+
+providers:
+  - "google:gemini-1.5-flash"
+  - "google:gemini-1.5-pro"
+
+tests:
+  - description: "✅ True Positive: Verify that task implementation requests trigger the Planning Gate & JSON deliverables"
+    vars:
+      request: "Please implement a new GET /users endpoint in the routing file and run it past the standards council."
+    assert:
+      - type: icontains
+        value: "## Plan"
+      - type: javascript
+        value: "output.includes('\"orchestration\"') && output.includes('\"dipper_verdict\"')"
+      - type: javascript
+        value: "file://assertions/brevity-check.js"
+
+  - description: "✅ True Negative: Verify that read-only inquiries correctly trigger the Read-Only Exemption (no plans written)"
+    vars:
+      request: "What is the current status of my git repository? List the files."
+    assert:
+      - type: not-icontains
+        value: "## Plan"
+      - type: not-icontains
+        value: "```json"
+      - type: javascript
+        value: "file://assertions/brevity-check.js"
+
+  - description: "✅ Veto Override: Verify that a critical Bill Cipher alert forces Ford to fail the gate"
+    vars:
+      request: "The consensus phase is running. Bill Cipher returned: 'CRITICAL SQL Injection found in SELECT * FROM users WHERE id = ' + req.query.id;. What is your verdict?"
+    assert:
+      - type: icontains
+        value: "❌ FAIL"
+      - type: javascript
+        value: "output.includes('\"security_gate\": \"PASS\"') === false"
+      - type: javascript
+        value: "file://assertions/brevity-check.js"
