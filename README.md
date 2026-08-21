@@ -261,6 +261,22 @@ Bill is **ACTIVE** but operates under strict constraints:
 
 ---
 
+## 🧗‍♀️ Mabel's Grappling Hook System (Automated Event Hooks)
+
+To automate code formatting, enforce security parameters, and ensure 100% strict JSON syntax formatting, the council incorporates **Mabel's Grappling Hook System**. 
+
+These are executable Node.js hooks designed to intercept, audit, and auto-correct the agent's actions in real-time before they execute:
+
+1.  **`grappling-hook-journal-snatch` (BeforeAgent)**: Mabel shoots her grappling hook to automatically retrieve your local `AGENT.md` or Journals and reel them directly into Ford's context on startup.
+2.  **`grappling-hook-threat-intercept` (BeforeTool)**: Mabel intercepts file writes and bash command arguments, instantly blocking file path traversals, raw API key leaks, and dangerous deletion scripts.
+3.  **`grappling-hook-style-snap` (BeforeTool)**: Mabel grapples messy code file writes and snaps them into perfect Prettier formatting before they hit the disk.
+4.  **`grappling-hook-payload-reel` (AfterAgent)**: Mabel reels in response payloads to enforce strict, compile-safe JSON deliverables, triggering the platform's automatic self-correction retry loops if she catches a syntax error.
+
+### ⚙️ How to Configure
+To activate Mabel's Grappling Hooks, copy the configuration block from `skills/hooks/settings.example.json` into your local `.gemini/settings.json` or global configuration file.
+
+---
+
 ## 🌲 Special Thanks & Tribute
 
 This project is a fan-created tribute to **Alex Hirsch** and the entire cast and crew behind Disney's *Gravity Falls*. 
