@@ -48,3 +48,4 @@ jobs:
         run: npx promptfoo eval -c skills/evals/promptfooconfig.yaml --max-concurrency 1 --verbose
         env:
           GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
+          PROMPTFOO_RETRIES: 2 # Limit retries to prevent endless pipeline hangs on rate limits
