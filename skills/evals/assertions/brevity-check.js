@@ -19,11 +19,13 @@ module.exports = function(output, context) {
     if (cleanLines.length <= maxAllowedLines) {
         return {
             pass: true,
+            score: 1.0,
             reason: `Passed token hygiene! Output contains only ${cleanLines.length} lines of text (excluding code blocks).`
         };
     } else {
         return {
             pass: false,
+            score: 0.0,
             reason: `❌ BREVITY VIOLATION: Output has ${cleanLines.length} conversational lines (Max allowed is ${maxAllowedLines} lines).` +
                     `\nOffending lines:\n${cleanLines.map((l, i) => `${i + 1}: ${l}`).join('\n')}`
         };

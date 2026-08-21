@@ -7,10 +7,16 @@ on:
   pull_request:
     branches: [ main ]
 
+# Operational concurrency limit: cancel previous runs when new pushes are made
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   deterministic-verification:
     name: 🛡️ Deterministic Gating & Hooks Tests
     runs-on: ubuntu-latest
+    timeout-minutes: 10 # Strict timeout guard to prevent run-time hangs
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
@@ -28,6 +34,7 @@ jobs:
     name: 🎭 Promptfoo Behavioral AI Evals
     needs: deterministic-verification # Preserve API tokens; only run evals if unit tests pass
     runs-on: ubuntu-latest
+    timeout-minutes: 10 # Strict timeout guard to prevent run-time hangs
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
