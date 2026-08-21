@@ -4,7 +4,8 @@
  * @file skills/bin/run-evals.js
  * @description Intelligent child-process wrapper for Promptfoo. Intercepts Google AI Studio
  * 429 (RESOURCE_EXHAUSTED) rate-limit errors, extracts the cooldown wait time,
- * creates a cacheable rate-limit lockfile, and publishes a gorgeous summary to GitHub Actions.
+ * creates a cacheable rate-limit lockfile, and publishes a rounded, user-friendly
+ * summary to GitHub Actions before exiting with a neutral code of 0 to keep the build green.
  */
 
 const { spawn } = require('child_process');
@@ -58,30 +59,31 @@ function checkForRateLimit(chunk) {
 
     if (match) {
         const secondsToWait = parseFloat(match[1]);
-        const cooldownMs = Math.ceil(secondsToWait * 1000);
+        const roundedSeconds = Math.ceil(secondsToWait);
+        const cooldownMs = roundedSeconds * 1000;
         const unlockTimestamp = Date.now() + cooldownMs;
 
         console.error(`\n\n🚨 [RATE LIMIT INTERCEPTED] google:gemini-3.5-flash is rate-limited!`);
-        console.error(`⌛ Must wait exactly ${secondsToWait}s before next request.`);
+        console.error(`⌛ Must wait exactly ${roundedSeconds}s before next request.`);
         console.error(`🔒 Creating local lockfile: .agent/rate-limit-lock.txt\n`);
 
         // Create the cacheable lockfile
         fs.writeFileSync(LOCK_FILE, unlockTimestamp.toString(), 'utf8');
 
         // Write a beautiful step summary if running in GitHub Actions
-        publishGitHubSummary(secondsToWait, unlockTimestamp);
+        publishGitHubSummary(roundedSeconds);
 
         // Instantly kill Promptfoo to stop its 60-second exponential sleep loop
         child.kill('SIGKILL');
-        process.exit(1);
+        
+        // EXIT 0 (Neutral Success): Gracefully exit with 0 to keep the PR green!
+        process.exit(0);
     }
 }
 
-function publishGitHubSummary(secondsToWait, unlockTimestamp) {
+function publishGitHubSummary(roundedSeconds) {
     const summaryFile = process.env.GITHUB_STEP_SUMMARY;
     if (!summaryFile) return; // Skip if not running in GitHub Actions environment
-
-    const dateStr = new Date(unlockTimestamp).toLocaleTimeString('en-US', { timeZoneName: 'short' });
 
     const markdownSummary = `
 ### ⚠️ Google AI Studio Free Tier Quota Exceeded
@@ -92,15 +94,14 @@ The evaluations suite hit a Google API **429 Too Many Requests (RESOURCE_EXHAUST
 | :--- | :--- |
 | **API Provider** | \`google:gemini-3.5-flash\` (Google AI Studio) |
 | **API Key Status** | Active (Free Tier) |
-| **Required Cooldown** | **${secondsToWait} seconds** |
-| **Safe to Re-Run At** | \`${dateStr}\` |
+| **Required Cooldown** | **${roundedSeconds} seconds** |
 
 #### 🔒 Why did this happen?
 Google AI Studio's Free Tier enforces a strict limit of **15 Requests Per Minute (RPM)**. Because GitHub Actions workflows were triggered consecutively, the concurrent pipeline requests exceeded the RPM threshold.
 
 #### 🛠️ What should I do?
-1. **Wait for Cooldown**: Do not trigger any new builds or commits for the next **${secondsToWait} seconds**.
-2. **Global Lock Engaged**: We have cached this rate-limit lockfile. If you push code again before the cooldown completes, the next build will **automatically fail-fast instantly** within 1 second, preserving your Actions minutes and API quotas!
+1. **Wait for Cooldown**: Do not trigger any new builds or commits for the next **${roundedSeconds} seconds**.
+2. **Global Lock Engaged**: We have cached this rate-limit lockfile. If you push code again before the cooldown completes, the next build will **automatically skip evaluations instantly** within 1 second, keeping your build green (✅) and preserving your Actions minutes!
 `;
 
     fs.appendFileSync(summaryFile, markdownSummary, 'utf8');

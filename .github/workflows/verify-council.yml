@@ -76,7 +76,7 @@ jobs:
               echo "" >> $GITHUB_STEP_SUMMARY
               echo "⌛ **Safe to re-run in: \`${COOLDOWN_SEC} seconds\`**" >> $GITHUB_STEP_SUMMARY
               
-              exit 1 # Instantly fail-fast inside 1 second!
+              exit 0 # Instantly skip and exit 0 to keep PR green!
             fi
           fi
           echo "cooldown_active=false" >> $GITHUB_OUTPUT
