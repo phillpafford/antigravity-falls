@@ -58,7 +58,8 @@ process.stdin.on('end', () => {
 
     } catch (error) {
         console.error(`[Mabel's Grappling Hook - ERROR]: ${error.message}`);
-        console.log(input || '{}');
-        process.exit(0);
+        // Return a safe empty JSON fallback to prevent cascading parser crashes
+        console.log('{}');
+        process.exit(1);
     }
 });
