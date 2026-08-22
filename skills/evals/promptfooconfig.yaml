@@ -17,7 +17,7 @@ tests:
       - type: icontains
         value: "Plan"
       - type: icontains
-        value: "Task Slug"
+        value: "routes"
 
   - description: "✅ True Negative: Verify that read-only inquiries correctly trigger the Read-Only Exemption (no plans written)"
     vars:
