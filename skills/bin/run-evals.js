@@ -15,6 +15,29 @@ const path = require('path');
 const AGENT_DIR = path.join(process.cwd(), '.agent');
 const LOCK_FILE = path.join(AGENT_DIR, 'rate-limit-lock.txt');
 
+/**
+ * Dynamically resolves the active Google AI model from promptfooconfig.yaml
+ * to ensure a single source of truth and prevent hardcoding.
+ */
+function getModelFromConfig() {
+    try {
+        const configPath = path.join(process.cwd(), 'skills', 'evals', 'promptfooconfig.yaml');
+        if (fs.existsSync(configPath)) {
+            const content = fs.readFileSync(configPath, 'utf8');
+            // Extract the model matching - "google:..." or - 'google:...'
+            const match = content.match(/-\s*["'](google:[a-zA-Z0-9\.\-]+)["']/);
+            if (match && match[1]) {
+                return match[1];
+            }
+        }
+    } catch (e) {
+        console.error(`[WARN] Failed to parse model from config: ${e.message}`);
+    }
+    return 'google:gemini-3.5-flash-lite'; // Safe fallback
+}
+
+const resolvedModel = getModelFromConfig();
+
 // 1. Ensure the .agent folder exists
 if (!fs.existsSync(AGENT_DIR)) {
     fs.mkdirSync(AGENT_DIR, { recursive: true });
@@ -66,7 +89,7 @@ function checkForRateLimit(chunk) {
         const cooldownMs = (roundedSeconds * 1000) + safetyBufferMs;
         const unlockTimestamp = Date.now() + cooldownMs;
 
-        console.error(`\n\n🚨 [RATE LIMIT INTERCEPTED] google:gemini-3.5-flash is rate-limited!`);
+        console.error(`\n\n🚨 [RATE LIMIT INTERCEPTED] ${resolvedModel} is rate-limited!`);
         console.error(`⌛ Lock duration: ${roundedSeconds}s (+1s clock-sync buffer)`);
         console.error(`🔒 Creating local lockfile: .agent/rate-limit-lock.txt\n`);
 
@@ -95,7 +118,7 @@ The evaluations suite hit a Google API **429 Too Many Requests (RESOURCE_EXHAUST
 
 | Metric | Details |
 | :--- | :--- |
-| **API Provider** | \`google:gemini-3.5-flash\` (Google AI Studio) |
+| **API Provider** | \`${resolvedModel}\` (Google AI Studio) |
 | **API Key Status** | Active (Free Tier) |
 | **Required Cooldown** | **${roundedSeconds} seconds** |
 
