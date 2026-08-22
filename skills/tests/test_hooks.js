@@ -108,4 +108,110 @@ test('🧗‍♀️ Mabel\'s Grappling Hooks - Operational Test Suite', async (t
             assert.strictEqual(error.status, 2, 'Expected process exit code to be 2 (Auto-Retry Trigger)');
         }
     });
+
+    await t.test('6. [threat-intercept.js] - Should block leaked GitHub Personal Access Tokens (ghp_) with exit 2', () => {
+        const scriptPath = path.join(HOOK_DIR, 'threat-intercept.js');
+        const inputPayload = JSON.stringify({
+            tool: 'write_file',
+            arguments: { file_path: 'src/config.js', content: 'const TOKEN = "ghp_1234567890abcdefghijklmnopqrstuvwxYZ";' }
+        });
+
+        try {
+            execSync(`node "${scriptPath}"`, {
+                input: inputPayload,
+                stdio: 'pipe'
+            });
+            assert.fail('Expected threat script to block and exit 2, but it exited 0.');
+        } catch (error) {
+            assert.strictEqual(error.status, 2, 'Expected process exit code to be 2 (Emergency Block)');
+        }
+    });
+
+    await t.test('7. [journal-snatch.js] - Should exit with code 1 and output safe "{}" on malformed JSON input', () => {
+        const scriptPath = path.join(HOOK_DIR, 'journal-snatch.js');
+        const inputPayload = '{"context_append": "partial json...'; // malformed
+
+        try {
+            execSync(`node "${scriptPath}"`, {
+                input: inputPayload,
+                stdio: 'pipe'
+            });
+            assert.fail('Expected journal-snatch to fail and exit 1 on malformed JSON, but it exited 0.');
+        } catch (error) {
+            assert.strictEqual(error.status, 1, 'Expected process exit code to be 1');
+            const stdout = error.stdout.toString().trim();
+            assert.strictEqual(stdout, '{}', 'Expected output to be a clean empty JSON object "{}"');
+        }
+    });
+
+    await t.test('8. [style-snap.js] - Should run successfully and bypass formatting gracefully if prettier is not present', () => {
+        const scriptPath = path.join(HOOK_DIR, 'style-snap.js');
+        const inputPayload = JSON.stringify({
+            tool: 'write_file',
+            arguments: { file_path: 'src/config.js', content: 'const temp = "value";' }
+        });
+
+        try {
+            const output = execSync(`node "${scriptPath}"`, {
+                input: inputPayload,
+                encoding: 'utf8'
+            });
+            const parsed = JSON.parse(output.trim());
+            assert.strictEqual(parsed.tool, 'write_file');
+            assert.strictEqual(parsed.arguments.content, 'const temp = "value";');
+        } catch (error) {
+            assert.fail(`Expected clean tool call to exit 0 and bypass, but it failed: ${error.message}`);
+        }
+    });
+
+    await t.test('9. [threat-intercept.js] - Should exit with code 1 and output safe "{}" on malformed JSON input', () => {
+        const scriptPath = path.join(HOOK_DIR, 'threat-intercept.js');
+        const inputPayload = '{"tool": "partial json...'; // malformed
+
+        try {
+            execSync(`node "${scriptPath}"`, {
+                input: inputPayload,
+                stdio: 'pipe'
+            });
+            assert.fail('Expected threat-intercept to fail and exit 1 on malformed JSON, but it exited 0.');
+        } catch (error) {
+            assert.strictEqual(error.status, 1, 'Expected process exit code to be 1');
+            const stdout = error.stdout.toString().trim();
+            assert.strictEqual(stdout, '{}', 'Expected output to be a clean empty JSON object "{}"');
+        }
+    });
+
+    await t.test('10. [style-snap.js] - Should exit with code 1 and output safe "{}" on malformed JSON input', () => {
+        const scriptPath = path.join(HOOK_DIR, 'style-snap.js');
+        const inputPayload = '{"tool": "partial json...'; // malformed
+
+        try {
+            execSync(`node "${scriptPath}"`, {
+                input: inputPayload,
+                stdio: 'pipe'
+            });
+            assert.fail('Expected style-snap to fail and exit 1 on malformed JSON, but it exited 0.');
+        } catch (error) {
+            assert.strictEqual(error.status, 1, 'Expected process exit code to be 1');
+            const stdout = error.stdout.toString().trim();
+            assert.strictEqual(stdout, '{}', 'Expected output to be a clean empty JSON object "{}"');
+        }
+    });
+
+    await t.test('11. [payload-reel.js] - Should exit with code 1 and output safe "{}" on malformed JSON input', () => {
+        const scriptPath = path.join(HOOK_DIR, 'payload-reel.js');
+        const inputPayload = '{"response": "partial json...'; // malformed
+
+        try {
+            execSync(`node "${scriptPath}"`, {
+                input: inputPayload,
+                stdio: 'pipe'
+            });
+            assert.fail('Expected payload-reel to fail and exit 1 on malformed JSON, but it exited 0.');
+        } catch (error) {
+            assert.strictEqual(error.status, 1, 'Expected process exit code to be 1');
+            const stdout = error.stdout.toString().trim();
+            assert.strictEqual(stdout, '{}', 'Expected output to be a clean empty JSON object "{}"');
+        }
+    });
 });

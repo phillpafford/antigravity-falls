@@ -21,7 +21,7 @@ process.stdin.on('end', () => {
         log(`Intercepting tool call: [${toolName}]`);
 
         // 1. Check for hardcoded API keys / Secrets (inclusive of hyphens and varied lengths)
-        const secretRegex = /(sk-[a-zA-Z0-9-]{32,44}|AIzaSy[a-zA-Z0-9_-]{33}|amzn\.mws\.[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}|dsa_[a-zA-Z0-9]{32,44})/gi;
+        const secretRegex = /(ghp_[a-zA-Z0-9]{36}|sk-[a-zA-Z0-9-]{32,44}|AIzaSy[a-zA-Z0-9_-]{33}|amzn\.mws\.[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}|dsa_[a-zA-Z0-9]{32,44})/gi;
         if (secretRegex.test(argString)) {
             log(`❌ CRITICAL SECURITY ALERT: Leaked raw API Key / Secret detected in tool payload!`);
             console.error(`\nViolation Details: Detected active token/secret pattern.`);
@@ -55,7 +55,8 @@ process.stdin.on('end', () => {
 
     } catch (error) {
         console.error(`[Mabel's Grappling Hook - ERROR]: ${error.message}`);
-        console.log(input || '{}');
-        process.exit(0);
+        // Return a safe empty JSON fallback to prevent cascading parser crashes
+        console.log('{}');
+        process.exit(1);
     }
 });

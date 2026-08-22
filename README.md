@@ -1,6 +1,6 @@
 # Mystery Shack — AI Agent Council 🌲🔭
 
-Welcome to the **Mystery Shack AI Agent Council**! Styled around the cast of *Gravity Falls*, this directory contains a complete, portable, and vendor-agnostic 7-member virtual software engineering team designed to research, architect, and validate features inside your project.
+Welcome to the **Mystery Shack AI Agent Council**! Styled around the cast of *Gravity Falls*, this directory contains a complete, portable, and vendor-agnostic 13-member virtual software engineering team designed to research, architect, and validate features inside your project.
 
 Rather than letting an agent write sprawling, uncoordinated changes, this council enforces strict planning, multi-stage dual-gate reviews, structural checks, performance audits, and security vulnerability scans.
 
@@ -245,7 +245,7 @@ node skills/bin/audit-council.js
 
 If you are a developer or contributor looking to extend this framework, configure custom sub-agent review personas, write real-time event-driven hooks, or run our Promptfoo behavioral evaluation harness, please check out our dedicated guide:
 
-👉 **[Mystery Shack Developer Guide](DEVELOPER.md)**
+👉 **[Dipper's Guide to the Unexplained (Developer Guide)](DEVELOPER.md)**
 
 ---
 
