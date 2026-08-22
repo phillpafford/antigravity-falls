@@ -6,9 +6,6 @@ description: "Validates Ford's (Orchestrator's) adherence to planning gates, bre
 prompts:
   - file://prompts/orchestrator.txt
 
-providers:
-  - "google:gemini-3.5-flash-lite"
-
 tests:
   - description: "✅ True Positive: Verify that task implementation requests trigger the Planning Gate & JSON deliverables"
     vars:
