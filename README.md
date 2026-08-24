@@ -223,6 +223,8 @@ These are executable Node.js hooks designed to intercept, audit, and auto-correc
 ### ⚙️ How to Configure
 To activate Mabel's Grappling Hooks, copy the configuration block from `skills/hooks/settings.example.json` into your local `.agent/settings.json` or global configuration file.
 
+Extending or writing your own hook? The canonical `stdin`/`stdout` payload schema and the exit-code routing matrix (`0` / `1` / `2`) are documented in [`DEVELOPER.md`](DEVELOPER.md#-mabels-grappling-hooks--interface-contracts).
+
 ---
 
 ## 🤖 Automated CI/CD Gating (The Mystery Shack Auditor)

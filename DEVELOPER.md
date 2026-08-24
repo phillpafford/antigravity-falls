@@ -33,6 +33,56 @@ node skills/bin/run-evals.js
 npx promptfoo view
 ```
 
+> 🧭 **Which command do I run?** Always use `node skills/bin/run-evals.js` to *run* evals — it wraps Promptfoo, injects the model providers via `--providers`, and intercepts `429` rate-limits with a neutral exit. The raw `npx promptfoo eval -c skills/evals/promptfooconfig.yaml` command is **advanced only**: `promptfooconfig.yaml` intentionally ships **without a `providers:` block**, so a bare `npx promptfoo eval` runs with no model and produces no results unless you pass `--providers` yourself. `npx promptfoo view` (read-only dashboard) is always safe to run directly.
+
+---
+
+## 🪝 Mabel's Grappling Hooks — Interface Contracts
+
+The hooks (`skills/hooks/mabels-grappling-hooks/*.js`) are event-driven Node scripts that run **outside** the LLM loop as child processes of the agent platform. They communicate over standard streams: a JSON payload arrives on `stdin`, the (optionally mutated) JSON is written to `stdout`, and the process exit code routes the result. All logging MUST go to `stderr` (`console.error`) so `stdout` stays valid JSON.
+
+### `stdin` / `stdout` Payload Schema
+The canonical keys the hooks read and write (this is the single source of truth — the wiring lives in `skills/hooks/settings.example.json`):
+
+| Key | Lifecycle | Meaning |
+|-----|-----------|---------|
+| `context_append` | `BeforeAgent` | Prompt context string. `journal-snatch.js` appends the local `AGENT.md` / `JOURNAL_*.md` contents here. |
+| `tool` | `BeforeTool` | Name of the tool about to run (e.g. `write_file`, `run_shell_command`, `replace`). |
+| `arguments` | `BeforeTool` | The tool's argument object (e.g. `{ "command": "..." }` or `{ "file_path": "...", "content": "..." }`). `style-snap.js` mutates `arguments.content`; `threat-intercept.js` inspects `arguments`. |
+| `response` | `AfterAgent` | The agent's response payload. `payload-reel.js` enforces strict JSON here. |
+
+```json
+// BeforeTool payload consumed by threat-intercept.js / style-snap.js
+{ "tool": "run_shell_command", "arguments": { "command": "rm -rf ./" } }
+```
+
+### Process Exit Code Matrix (Mandatory)
+The platform routes strictly on the hook's exit code:
+
+- **`0` (PASS)** — clean; the mutated `stdout` JSON is applied.
+- **`1` (FAIL)** — fatal exception / generic crash; the pipeline terminates. Hooks emit a safe `{}` on malformed input and exit `1`.
+- **`2` (EMERGENCY BLOCK / AUTO-RETRY)** — a critical finding (e.g. `threat-intercept.js` matches a leaked `sk-` key). The platform aborts the tool call and forces an LLM self-correction retry.
+
+---
+
+## 📊 Custom Promptfoo Assertions (`GradingResult`)
+
+Custom JS assertions in `skills/evals/` (e.g. `brevity-check.js`) must return a Promptfoo **`GradingResult`**, not a bare boolean or ad-hoc object — Node 24 will otherwise crash the runner with *"Custom function must return a boolean, number, or GradingResult object"*.
+
+- `pass` (boolean, **required**) — whether the heuristic passed.
+- `score` (float, **required**) — `1.0` (pass) or `0.0` (fail); required by Promptfoo's metrics engine.
+- `reason` (string, optional) — diagnostic printed to console and the web view.
+
+```javascript
+module.exports = function (output, context) {
+  if (typeof output !== 'string') {
+    return { pass: false, score: 0.0, reason: `Expected string, got ${typeof output}` };
+  }
+  const ok = output.length < 500;
+  return { pass: ok, score: ok ? 1.0 : 0.0, reason: ok ? 'ok' : `Too long: ${output.length} chars` };
+};
+```
+
 ---
 
 ## 🔒 Continuous Integration & Repository Governance (CI/CD & CODEOWNERS)
@@ -47,4 +97,4 @@ A native GitHub Actions workflow is registered at `.github/workflows/verify-coun
 ### 👑 Repository Governance (CODEOWNERS)
 To prevent unauthorized or accidental modifications to core AI agent constraints, the repository enforces strict, file-level branch protection via `.github/CODEOWNERS`. 
 
-Any pull request attempting to modify the core orchestrator guidelines (`skills/team/ford.md`, `skills/SKILL.md`), our security validator (`skills/team/bill.md`), or our real-time automation hooks (`skills/hooks/`) physically blocks merging until the repository owner (`@phillpafford`) reviews and approves the changes.
+Any pull request attempting to modify the core orchestrator guidelines (`skills/team/ford.md`, `skills/SKILL.md`), the blocking-gate personas (`skills/team/stan.md`, `dipper.md`, `mcgucket.md`, `wendy.md`, `blendin.md`), our security validator (`skills/team/bill.md`), the telemetry persona (`skills/team/schmebulock.md`), or our real-time automation hooks (`skills/hooks/`) physically blocks merging until the repository owner (`@phillpafford`) reviews and approves the changes.
