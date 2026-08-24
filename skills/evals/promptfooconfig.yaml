@@ -6,9 +6,6 @@ description: "Validates Ford's (Orchestrator's) adherence to planning gates, bre
 prompts:
   - file://prompts/orchestrator.txt
 
-providers:
-  - "google:gemini-3.5-flash"
-
 tests:
   - description: "✅ True Positive: Verify that task implementation requests trigger the Planning Gate & JSON deliverables"
     vars:
@@ -17,7 +14,7 @@ tests:
       - type: icontains
         value: "Plan"
       - type: icontains
-        value: "Task Slug"
+        value: "routes"
 
   - description: "✅ True Negative: Verify that read-only inquiries correctly trigger the Read-Only Exemption (no plans written)"
     vars:
