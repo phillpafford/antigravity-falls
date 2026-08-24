@@ -9,6 +9,13 @@
 /skills/SKILL.md            @phillpafford
 /skills/team/ford.md        @phillpafford
 
+# Blocking Gate Personas (a FAIL from any of these halts the pipeline)
+/skills/team/stan.md        @phillpafford
+/skills/team/dipper.md      @phillpafford
+/skills/team/mcgucket.md    @phillpafford
+/skills/team/wendy.md       @phillpafford
+/skills/team/blendin.md     @phillpafford
+
 # Automated Security, Formatting, & Context Hooks (Mabel's Grappling Hooks)
 /skills/hooks/              @phillpafford
 

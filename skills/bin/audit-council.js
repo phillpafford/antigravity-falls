@@ -53,21 +53,68 @@ function extractJsonBlocks(markdownText) {
   return jsonBlocks;
 }
 
+// Tokens that make a string a *status* value (a verdict/gate), as opposed to
+// free-text notes or violation descriptions. A value is only gated if EVERY
+// one of its word tokens is a known status token.
+const STATUS_WORDS = new Set([
+  'PASS', 'READY', 'FAIL', 'REWORK', 'REJECTED', 'WARN', 'WARNING',
+  'N/A', 'NA', 'YES', 'NO', 'CLEAN', 'SUSPICIOUS',
+  'MIGRATION_SAFE', 'BREAKING_SCHEMA', 'BOUNDARIES_INTACT', 'PROMPT_BYPASS',
+  'NO_SLOP', 'SLOP_CLEANED'
+]);
+
+// Of those, the tokens that represent an actual failing / blocking state.
+const FAILING_WORDS = new Set([
+  'FAIL', 'REWORK', 'REJECTED', 'BREAKING_SCHEMA', 'PROMPT_BYPASS'
+]);
+
+/**
+ * Classify a string value. Returns true only when the value is a genuine
+ * failing status — not a schema hint template ("PASS | FAIL") and not a
+ * free-text field that merely mentions the word "fail".
+ */
+function isFailingStatus(value) {
+  const trimmed = value.trim();
+  if (trimmed === '') return false;
+
+  // Schema hint templates enumerate options with a pipe (e.g. "✅ PASS | ❌ FAIL").
+  // An un-filled deliverable copied verbatim must NOT trip the gate.
+  if (trimmed.includes('|')) return false;
+
+  // Strip decorative emoji/status glyphs, then tokenize on whitespace.
+  const tokens = trimmed
+    .replace(/[✅❌⚠️🧹➖]/g, ' ')
+    .trim()
+    .split(/\s+/)
+    .filter(Boolean)
+    .map(t => t.toUpperCase());
+
+  if (tokens.length === 0) {
+    // Value was only glyphs — a bare ❌ is a failure signal.
+    return /❌/.test(trimmed);
+  }
+
+  // Only treat this as a gate-able status if every token is a known status word.
+  // Free-text ("Detected unvetted package 'axios'") is left alone.
+  const allStatusTokens = tokens.every(t => STATUS_WORDS.has(t));
+  if (!allStatusTokens) return false;
+
+  return tokens.some(t => FAILING_WORDS.has(t));
+}
+
 function auditObject(obj, pathKeys = []) {
   const failures = [];
-  
+
   for (const key in obj) {
     if (!Object.prototype.hasOwnProperty.call(obj, key)) continue;
-    
+
     const value = obj[key];
     const currentPath = [...pathKeys, key].join('.');
-    
+
     if (typeof value === 'object' && value !== null) {
       failures.push(...auditObject(value, [...pathKeys, key]));
     } else if (typeof value === 'string') {
-      const trimmedLower = value.trim().toLowerCase();
-      // Check for FAIL, Blocked, or Rework indicators
-      if (value.includes('❌') || value.includes('FAIL') || trimmedLower === 'rework' || trimmedLower === 'rejected') {
+      if (isFailingStatus(value)) {
         failures.push({ path: currentPath, value });
       }
     } else if (typeof value === 'boolean') {
@@ -79,7 +126,7 @@ function auditObject(obj, pathKeys = []) {
       }
     }
   }
-  
+
   return failures;
 }
 
