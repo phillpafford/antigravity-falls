@@ -1,0 +1,52 @@
+{
+  "grappling-hook-journal-snatch": {
+    "description": "Mabel yanks local AGENT.md / Journals and reels them into Ford's starting context.",
+    "PreInvocation": [
+      {
+        "type": "command",
+        "command": "node $AGENT_PROJECT_DIR/.agent/skills/hooks/mabels-grappling-hooks/journal-snatch.js",
+        "timeout": 5
+      }
+    ]
+  },
+  "grappling-hook-threat-intercept": {
+    "description": "Mabel snatches and intercepts dangerous tool args or leaked secrets before they execute.",
+    "PreToolUse": [
+      {
+        "matcher": "write_file|write_to_file|run_shell_command|run_command|replace|replace_file_content",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node $AGENT_PROJECT_DIR/.agent/skills/hooks/mabels-grappling-hooks/threat-intercept.js",
+            "timeout": 5
+          }
+        ]
+      }
+    ]
+  },
+  "grappling-hook-style-snap": {
+    "description": "Mabel grapples messy code writes and snaps them into perfect Prettier formatting.",
+    "PreToolUse": [
+      {
+        "matcher": "write_file|write_to_file|replace|replace_file_content",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node $AGENT_PROJECT_DIR/.agent/skills/hooks/mabels-grappling-hooks/style-snap.js",
+            "timeout": 8
+          }
+        ]
+      }
+    ]
+  },
+  "grappling-hook-payload-reel": {
+    "description": "Mabel reels in response payloads to enforce strict JSON syntax, triggering auto-correction on failures.",
+    "PostInvocation": [
+      {
+        "type": "command",
+        "command": "node $AGENT_PROJECT_DIR/.agent/skills/hooks/mabels-grappling-hooks/payload-reel.js",
+        "timeout": 5
+      }
+    ]
+  }
+}

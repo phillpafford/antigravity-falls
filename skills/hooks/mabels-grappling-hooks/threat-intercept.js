@@ -20,8 +20,8 @@ process.stdin.on('end', () => {
 
         log(`Intercepting tool call: [${toolName}]`);
 
-        // 1. Check for hardcoded API keys / Secrets (inclusive of hyphens and varied lengths)
-        const secretRegex = /(ghp_[a-zA-Z0-9]{36}|sk-[a-zA-Z0-9-]{32,44}|AIzaSy[a-zA-Z0-9_-]{33}|amzn\.mws\.[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}|dsa_[a-zA-Z0-9]{32,44})/gi;
+        // 1. Check for hardcoded API keys / Secrets (OpenAI, Anthropic, Google, AWS, GitHub, Slack, Private Keys)
+        const secretRegex = /(ghp_[a-zA-Z0-9]{36}|github_pat_[a-zA-Z0-9_]{22,}|sk-[a-zA-Z0-9_-]{20,}|sk-ant-[a-zA-Z0-9_-]{20,}|AIzaSy[a-zA-Z0-9_-]{33}|AKIA[0-9A-Z]{16}|amzn\.mws\.[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}|xox[baprs]-[0-9a-zA-Z-]{10,48}|dsa_[a-zA-Z0-9]{32,44}|-----BEGIN[ A-Z0-9_-]*PRIVATE KEY-----)/gi;
         if (secretRegex.test(argString)) {
             log(`❌ CRITICAL SECURITY ALERT: Leaked raw API Key / Secret detected in tool payload!`);
             console.error(`\nViolation Details: Detected active token/secret pattern.`);
