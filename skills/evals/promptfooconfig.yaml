@@ -23,7 +23,9 @@ tests:
       - type: not-icontains
         value: "## Plan"
       - type: not-icontains
-        value: "```json"
+        value: "plan_location"
+      - type: not-icontains
+        value: ".agent/plan/"
       - type: javascript
         value: "file://assertions/brevity-check.js"
 
