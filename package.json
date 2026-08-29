@@ -4,7 +4,12 @@
   "description": "Mystery Shack AI Agent Council",
   "main": "skills/bin/audit-council.js",
   "scripts": {
-    "test": "node --test skills/tests/*.js"
+    "test": "node --test skills/tests/*.js",
+    "audit": "node skills/bin/audit-council.js",
+    "eval": "node skills/bin/run-evals.js"
+  },
+  "engines": {
+    "node": ">=20.0.0"
   },
   "author": "Phill Pafford",
   "license": "MIT",

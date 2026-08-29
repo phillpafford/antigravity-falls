@@ -42,14 +42,14 @@ npx promptfoo view
 The hooks (`skills/hooks/mabels-grappling-hooks/*.js`) are event-driven Node scripts that run **outside** the LLM loop as child processes of the agent platform. They communicate over standard streams: a JSON payload arrives on `stdin`, the (optionally mutated) JSON is written to `stdout`, and the process exit code routes the result. All logging MUST go to `stderr` (`console.error`) so `stdout` stays valid JSON.
 
 ### `stdin` / `stdout` Payload Schema
-The canonical keys the hooks read and write (this is the single source of truth — the wiring lives in `skills/hooks/settings.example.json`):
+The canonical keys the hooks read and write (this is the single source of truth — the wiring lives in `skills/hooks/hooks.example.json` for Antigravity/Gemini and `skills/hooks/settings.example.json` for generic/Claude setups):
 
-| Key | Lifecycle | Meaning |
-|-----|-----------|---------|
-| `context_append` | `BeforeAgent` | Prompt context string. `journal-snatch.js` appends the local `AGENT.md` / `JOURNAL_*.md` contents here. |
-| `tool` | `BeforeTool` | Name of the tool about to run (e.g. `write_file`, `run_shell_command`, `replace`). |
-| `arguments` | `BeforeTool` | The tool's argument object (e.g. `{ "command": "..." }` or `{ "file_path": "...", "content": "..." }`). `style-snap.js` mutates `arguments.content`; `threat-intercept.js` inspects `arguments`. |
-| `response` | `AfterAgent` | The agent's response payload. `payload-reel.js` enforces strict JSON here. |
+| Key | Lifecycle (Generic / Antigravity) | Meaning |
+|-----|-----------------------------------|---------|
+| `context_append` | `BeforeAgent` / `PreInvocation` | Prompt context string. `journal-snatch.js` appends the local `AGENT.md` / `JOURNAL_*.md` contents here. |
+| `tool` | `BeforeTool` / `PreToolUse` | Name of the tool about to run (e.g. `write_file`, `run_shell_command`, `replace`). |
+| `arguments` | `BeforeTool` / `PreToolUse` | The tool's argument object (e.g. `{ "command": "..." }` or `{ "file_path": "...", "content": "..." }`). `style-snap.js` mutates `arguments.content`; `threat-intercept.js` inspects `arguments`. |
+| `response` | `AfterAgent` / `PostInvocation` | The agent's response payload. `payload-reel.js` enforces strict JSON here. |
 
 ```json
 // BeforeTool payload consumed by threat-intercept.js / style-snap.js

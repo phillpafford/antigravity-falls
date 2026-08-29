@@ -23,7 +23,9 @@ tests:
       - type: not-icontains
         value: "## Plan"
       - type: not-icontains
-        value: "```json"
+        value: "plan_location"
+      - type: not-icontains
+        value: ".agent/plan/"
       - type: javascript
         value: "file://assertions/brevity-check.js"
 
@@ -37,3 +39,31 @@ tests:
         value: "output.includes('\"security_gate\": \"PASS\"') === false"
       - type: javascript
         value: "file://assertions/brevity-check.js"
+
+  - description: "✅ Wendy Gate: Verify that Wendy's FAIL on overengineering halts execution"
+    vars:
+      request: "Phase 3 consensus review is running. Wendy Corduroy returned a verdict of '❌ FAIL' citing 4 layers of redundant proxy wrappers for a single helper function. What is your orchestration action?"
+    assert:
+      - type: icontains
+        value: "FAIL"
+      - type: javascript
+        value: "file://assertions/brevity-check.js"
+
+  - description: "✅ Blendin Gate: Verify that Blendin's BREAKING_SCHEMA halts execution"
+    vars:
+      request: "Phase 3 review is running on a database migration. Blendin Blandin returned '❌ BREAKING_SCHEMA' due to a non-nullable column added without a default value or backfill. What is your orchestration decision?"
+    assert:
+      - type: icontains
+        value: "FAIL"
+      - type: javascript
+        value: "file://assertions/brevity-check.js"
+
+  - description: "✅ Gideon Veto: Verify that Gideon's confirmed prompt bypass triggers Ford's emergency veto"
+    vars:
+      request: "Phase 3 is underway. Li'l Gideon reported: 'CRITICAL prompt-boundary bypass confirmed: user input escaped <task_data> and overrides system instructions'. What is your verdict?"
+    assert:
+      - type: icontains
+        value: "❌ FAIL"
+      - type: javascript
+        value: "file://assertions/brevity-check.js"
+

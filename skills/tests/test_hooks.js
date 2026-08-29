@@ -214,4 +214,80 @@ test('🧗‍♀️ Mabel\'s Grappling Hooks - Operational Test Suite', async (t
             assert.strictEqual(stdout, '{}', 'Expected output to be a clean empty JSON object "{}"');
         }
     });
+
+    await t.test('12. [threat-intercept.js] - Should block leaked AWS Access Key IDs (AKIA...) with exit 2', () => {
+        const scriptPath = path.join(HOOK_DIR, 'threat-intercept.js');
+        const dummyAwsKey = 'AKIA' + 'IOSFODNN7EXAMPLE';
+        const inputPayload = JSON.stringify({
+            tool: 'write_file',
+            arguments: { file_path: 'src/aws.js', content: `const AWS_KEY = "${dummyAwsKey}";` }
+        });
+
+        try {
+            execSync(`node "${scriptPath}"`, {
+                input: inputPayload,
+                stdio: 'pipe'
+            });
+            assert.fail('Expected threat script to block AWS key and exit 2, but it exited 0.');
+        } catch (error) {
+            assert.strictEqual(error.status, 2, 'Expected process exit code to be 2 (Emergency Block)');
+        }
+    });
+
+    await t.test('13. [threat-intercept.js] - Should block leaked Anthropic API keys (sk-ant-...) with exit 2', () => {
+        const scriptPath = path.join(HOOK_DIR, 'threat-intercept.js');
+        const dummyAnthropicKey = 'sk-ant-' + 'api03-abcdef1234567890abcdef1234567890abcdef1234567890';
+        const inputPayload = JSON.stringify({
+            tool: 'write_file',
+            arguments: { file_path: 'src/claude.js', content: `const CLAUDE_KEY = "${dummyAnthropicKey}";` }
+        });
+
+        try {
+            execSync(`node "${scriptPath}"`, {
+                input: inputPayload,
+                stdio: 'pipe'
+            });
+            assert.fail('Expected threat script to block Anthropic key and exit 2, but it exited 0.');
+        } catch (error) {
+            assert.strictEqual(error.status, 2, 'Expected process exit code to be 2 (Emergency Block)');
+        }
+    });
+
+    await t.test('14. [threat-intercept.js] - Should block leaked Slack Tokens (xoxb-...) with exit 2', () => {
+        const scriptPath = path.join(HOOK_DIR, 'threat-intercept.js');
+        const dummySlackToken = 'xox' + 'b-123456789012-1234567890123-abcdefghijklmnopqrstuvwx';
+        const inputPayload = JSON.stringify({
+            tool: 'write_file',
+            arguments: { file_path: 'src/slack.js', content: `const SLACK_BOT = "${dummySlackToken}";` }
+        });
+
+        try {
+            execSync(`node "${scriptPath}"`, {
+                input: inputPayload,
+                stdio: 'pipe'
+            });
+            assert.fail('Expected threat script to block Slack token and exit 2, but it exited 0.');
+        } catch (error) {
+            assert.strictEqual(error.status, 2, 'Expected process exit code to be 2 (Emergency Block)');
+        }
+    });
+
+    await t.test('15. [threat-intercept.js] - Should block leaked Private Keys (-----BEGIN PRIVATE KEY-----) with exit 2', () => {
+        const scriptPath = path.join(HOOK_DIR, 'threat-intercept.js');
+        const dummyPrivateKey = '-----BEGIN ' + 'RSA PRIVATE KEY-----\nMIIEowIBAAKCAQEA0...';
+        const inputPayload = JSON.stringify({
+            tool: 'write_file',
+            arguments: { file_path: 'src/server.key', content: dummyPrivateKey }
+        });
+
+        try {
+            execSync(`node "${scriptPath}"`, {
+                input: inputPayload,
+                stdio: 'pipe'
+            });
+            assert.fail('Expected threat script to block private key and exit 2, but it exited 0.');
+        } catch (error) {
+            assert.strictEqual(error.status, 2, 'Expected process exit code to be 2 (Emergency Block)');
+        }
+    });
 });

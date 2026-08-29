@@ -221,7 +221,12 @@ These are executable Node.js hooks designed to intercept, audit, and auto-correc
 4.  **`grappling-hook-payload-reel` (AfterAgent)**: Mabel reels in response payloads to enforce strict, compile-safe JSON deliverables, triggering the platform's automatic self-correction retry loops if she catches a syntax error.
 
 ### ⚙️ How to Configure
-To activate Mabel's Grappling Hooks, copy the configuration block from `skills/hooks/settings.example.json` into your local `.agent/settings.json` or global configuration file.
+
+#### Generic & Claude Platform Setup
+To activate Mabel's Grappling Hooks in generic or Claude agent configurations, copy the configuration block from `skills/hooks/settings.example.json` into your local `.agent/settings.json` or global configuration file.
+
+#### Google Antigravity & Gemini CLI Native Setup
+To activate Mabel's Grappling Hooks natively inside Google Antigravity or the Gemini CLI, copy the configuration from `skills/hooks/hooks.example.json` into your local `.agents/hooks.json` (or `.agent/hooks.json`). This utilizes native `PreInvocation`, `PreToolUse`, and `PostInvocation` event handlers.
 
 Extending or writing your own hook? The canonical `stdin`/`stdout` payload schema and the exit-code routing matrix (`0` / `1` / `2`) are documented in [`DEVELOPER.md`](DEVELOPER.md#-mabels-grappling-hooks--interface-contracts).
 
